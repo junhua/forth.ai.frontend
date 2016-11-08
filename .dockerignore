@@ -1,0 +1,15 @@
+# OS generate file
+.
+..
+.DS_Store
+.git
+.gitignore
+
+# Packages Installed.
+node_modules
+
+# npm log
+npm-debug.log
+
+# TODO list
+TODO

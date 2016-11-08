@@ -1,0 +1,9 @@
+/* eslint-disable */
+dist
+node_modules
+webpack.*.js
+server.js
+
+# fix "The following modules couldn't be hot updated: (They would need a full reload!)"
+# You also get this warning in react-hpt-reload v1.x if you write your root component as stateless plain function instead of using React.Component.
+src/app/App.jsx
