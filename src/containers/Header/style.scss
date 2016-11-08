@@ -1,0 +1,37 @@
+$background-medium: #fafafa; 
+$background-taobao-input: rgb(250, 255, 189);
+$logo-color: #1870DD;
+$login-color: #000000;
+$max-width: 1030px;
+$min-width: 700px;
+
+.header {
+  background: #f5f5dc;
+
+  .navbarMb0 {
+    margin-bottom: 0;
+  }
+
+  .maxWidth {
+    max-width: $max-width;
+  }
+
+  h2, p {
+    color: $logo-color;
+    margin: 0;
+  }
+
+  .navigator {
+    margin-right: 15px;
+  }
+
+  a {
+    color: $login-color;
+  }
+
+  a:hover{
+    color: $logo-color;
+  }
+
+}
+
