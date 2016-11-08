@@ -1,0 +1,16 @@
+# OSx file
+.
+..
+.DS_Store
+
+# Packages Installed
+node_modules
+
+# npm errors
+npm-debug.log
+
+# Production 
+dist
+
+# TODO list
+TODO
