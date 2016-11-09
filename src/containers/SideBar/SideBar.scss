@@ -1,0 +1,27 @@
+.wrapper{
+  
+  .content {
+    
+    margin-top: 100px;
+    padding-left: 20px;
+
+    $category-bgcolor: #DBE5ED;
+    $category-color: #698198;
+    
+    .category {
+      display: inline-block;
+      padding: .3em .6em;
+      margin-right: .4em;
+      margin-bottom: .3em;
+      color: $category-color;
+      border: 1px solid $category-color;
+      border-radius: 8px;
+      background: $category-bgcolor;
+    }
+
+    & > i {
+      margin-left: .4em;
+    }
+
+  }
+}
