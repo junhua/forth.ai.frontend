@@ -4,7 +4,7 @@ $login-body: #3BAAE9;
 $form-color: #fff;
 $loginBtn-padding: 30px;
 
-.wrapper {
+:global .form-wrapper {
 
   background: $login-body;
   margin-top: -70px;
@@ -12,7 +12,7 @@ $loginBtn-padding: 30px;
   height: 100vh;
   min-height: 600px;
 
-  .account {
+  .form-account {
     margin: 200px auto;
     width: $width;
     background: $form-background;

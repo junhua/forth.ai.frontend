@@ -1,78 +1,198 @@
-$django-summary: #ffc;
-$django-info: #f6f6f6;
-$django-body: #eee;
+:global {
+  $django-summary: #ffc;
+  $django-info: #f6f6f6;
+  $django-body: #eee;
 
-$django-admin-login-body: #f8f8f8;
-$django-admin-login-body-container: #fff;
+  $django-admin-login-body: #f8f8f8;
+  $django-admin-login-body-container: #fff;
 
-.main-site {
-  background: #3BAAE9;
-  max-width: 1030px;
-  margin: auto;
+  .main-site {
+    background: #3BAAE9;
+    max-width: 1030px;
+    margin: auto;
 
-  $sideBar-width: 240px;
-  $sideBar-color: #3BAAE9;
-  $main-color: #fff;
+    $sideBar-width: 240px;
+    $sideBar-color: #3BAAE9;
+    $main-color: #fff;
 
-  .wrapper{
+    .wrapper{
 
-    position:relative;
-    border-left: $sideBar-width solid $sideBar-color;
-    background: $main-color;
+      position:relative;
+      border-left: $sideBar-width solid $sideBar-color;
+      background: $main-color;
 
-    .sideBarWrapper {
+      .sideBarWrapper {
+        position: absolute;
+        width: $sideBar-width;
+        max-width: $sideBar-width;
+        left: -$sideBar-width;
+        top: 0;
+        background: $sideBar-color;
+      }
+
+      .boardtWrapper{
+        // background: red;
+        width: 100%;
+        min-height: 700px;
+
+        $active-color: #1870DD;
+        & li.active a { color: $active-color; }
+      }
+
+    }
+  }
+
+  /* Rules for sizing the icon. */
+  .material-icons.md-18 { font-size: 18px; }
+  .material-icons.md-24 { font-size: 24px; }
+  .material-icons.md-36 { font-size: 36px; }
+  .material-icons.md-48 { font-size: 48px; }
+
+  /* Rules for using icons as black on a light background. */
+  .material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+  .material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+  /* Rules for using icons as white on a dark background. */
+  .material-icons.md-light { color: rgba(255, 255, 255, 1); }
+  .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+  /* Rules for vertical */
+  .vertical-top { vertical-align: top; }
+  .vertical-middle { vertical-align: middle; }
+  .vertical-bottom { vertical-align: bottom; }
+
+  /* Rules for usual margin */
+  .mt-2 { margin-top: 2px; }
+  .mt--0_5em { margin-top: -0.5em; }
+  .mb-10 { margin-bottom: 10px; }
+  .mb-20 { margin-bottom: 20px; }
+  .mb-1_5em { margin-bottom: 1.5em; }
+  .ml-2 { margin-left: 2px; }
+
+  /* Rules for usual font icon color */
+  $color-corrent: #0F7001;
+  $color-error: #FB0007;
+  $color-progress: #13284B;
+  $color-pristine: #6C6C6C;
+  $color-circle-facebook: #2D4486;
+  $color-facebook: #fff;
+  .fa.pristine { color: $color-pristine; }
+  .fa.correct, .fa.done{ color: $color-corrent; }
+  .fa.error, .fa.remove { color: $color-error; }
+  .fa.draft { color: $color-progress; }
+  .fa.facebook-circle-color { color: $color-circle-facebook; }
+  .fa.facebook-color { color: $color-facebook; }
+
+  /* Rules for font size */
+  .fz0 { font-size: 0; }
+  .fz12 { font-size: 12px; }
+
+  /* Rules for font weight */ 
+  .fw-bolder { font-weight: bolder; }
+  .fw-bold { font-weight: bold; }
+
+
+  /* Example Zone */
+  $color-logo: #176FDC;
+  $color-logo-border: #CCD5DD;
+  // .thumbnail {
+  //   position: relative;
+
+  //   .label {
+  //     color: $color-logo;
+  //     border: 1px solid $color-logo-border;
+  //     border-radius: 50%;
+  //   }
+  // }
+  .stack {
+    position: relative;
+    display: inline-block;
+    margin-right: .5em;
+    font-size: 12px;
+    height: 3em;
+
+    .circle-thin {
+      display: inline-block;
+      height: 3em;
+      width: 3em;
+      line-height: 3em;
+      color: $color-logo;
+      overflow: hidden;
+      border: 1px solid $color-logo-border;
+      border-radius: 50%;
+    }
+
+    .subscript {
       position: absolute;
-      width: $sideBar-width;
-      max-width: $sideBar-width;
-      left: -$sideBar-width;
-      top: 0;
-      background: $sideBar-color;
+      left: 1.5em;
+      bottom: 0;
     }
+  }
 
-    .boardtWrapper{
-      background: red;
-      width: 100%;
-      height: 700px;
+  $color-account-new: #959595;
 
-      $active-color: #1870DD;
-      & li.active a { color: $active-color; }
+  .add-account {
+    color: $color-account-new;
+    margin-right: .5em;
+  }
+
+  /* Rules for usual button style, improve bootstrap v3.7 */
+  $color-post: #fff;
+  $color-post-bg: #13284B;
+  $color-file: #000;
+  $color-file-bg: #D0D0D0;
+
+  .btn-post {
+    color: $color-post;
+    background: $color-post-bg;
+  }
+
+  .btn-file {
+    color: #color-file;
+    background: $color-file-bg;
+  }
+
+
+  /* Rules for media, bootstrp v3.7 */ 
+  .inline-block { display: inline-block; }
+
+
+  /* component postItem */
+  .post-item {
+
+    .title {
+
     }
+    
+    $color-border: #C3CED7;
+    .post-body {
+      position: relative;
+      padding: 1.2em;
+      color: #4A525A;
+      border: 1px solid $color-border;
+      border-radius: 0.35em;
 
+      .arrows {
+        position: absolute;
+        top: 0;
+        left: -1.4em;
+        color: #454D55;
+      }
+      
+      .toolkit {
+        margin-top: 1.5em;
+        min-width: 100px;
+        text-align: right;
+
+        a, i {
+          margin-right: .1em;
+        }
+      }
+
+      img {
+        max-height: 84px;
+      }
+    }
   }
 }
-
-/* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
-
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
-/* Rules for vertical */
-.vertical-top { vertical-align: top; }
-.vertical-middle { vertical-align: middle; }
-.vertical-bottom { vertical-align: bottom; }
-
-/* Rules for usual margin */
-.mt-2 { margin-top: 2px; }
-.mb-10 { margin-bottom: 10px; }
-.mb-20 { margin-bottom: 20px; }
-.ml-2 { margin-left: 2px; }
-
-/* Rules for usual font icon color */
-$color-corrent: #0F7001;
-$color-error: #FB0007;
-$color-progress: #13284B;
-$color-pristine: #6C6C6C;
-.fa.pristine { color: $color-pristine; }
-.fa.correct { color: $color-corrent; }
-.fa.error { color: $color-error; }
-.fa.draft { color: $color-progress; }
 

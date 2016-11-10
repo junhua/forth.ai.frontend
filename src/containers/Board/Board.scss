@@ -1,0 +1,43 @@
+:global .board-container {
+  padding-top: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  $normal-color: #6C6C6C;
+
+  a { color: $normal-color; }
+
+  $color-posts-border: #D0D0D0;
+  $color-border: #C3CED7;
+
+  .navBody {
+    border: 1px solid $color-border;
+    border-top: none;
+  }
+
+  .posts {
+    width: 100%;
+    padding-top: 20px;
+    padding-right: 40px;
+    padding-left: 60px;
+    // background: yellow;
+    min-height: 500px;
+    // border: 1px solid $color-posts-border;
+    // border-top: none;
+
+    .itemNew {
+      padding: 1em 1.5em;
+      border: 1px solid $color-border;
+    }
+
+    .itemBtn {
+      padding: .5em;
+      border: 1px solid $color-border;
+    }
+
+  }
+}
+
+
+
+

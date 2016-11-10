@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import Header from '../containers/Header/Header';
-import styles from '../main.scss';
+import '../shard.scss';
 
 class App extends Component {
   render() {
     return (
       <div className="container-fuild">
         <Header />
-        <div className={`${styles.mainSite}`}>
+        <div className="main-site">
           {this.props.children}
         </div>
       </div>

@@ -1,12 +1,13 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 import App from './App';
-import { LoginView, NotFound } from '../views';
+import { Login, NotFound, Home } from '../views';
 
 export default (
   <Route path="/" component={App}>
-    <Route path="login" component={LoginView} />
+    <IndexRoute component={Home} />
+    <Route path="login" component={Login} />
     <Route path="404" component={NotFound} />
   </Route>
 );
