@@ -6,11 +6,11 @@ function Header() {
   return (
     <div className="header">
       <nav className="navbar navbar-default navbarMb0">
-        <div className="container clearfix maxWidth">
-          <div className="nav-header navbar-text navbar-left pull-left logo">
+        <div className="container clearfix maxWidth pt-6">
+          <div className="nav-header navbar-left pull-left logo">
             <h2>forth.ai</h2>
           </div>
-          <div className="navbar-text navbar-right pull-right navigator">
+          <div className="navbar-right pull-right navigator">
             <ul className="nav nav-pills">
               <li role="presentation"><Link to="/login">Login</Link></li>
             </ul>

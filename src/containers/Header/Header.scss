@@ -6,7 +6,12 @@ $max-width: 1030px;
 $min-width: 700px;
 
 :global .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background: #f5f5dc;
+  z-index: 9999;
 
   .navbarMb0 {
     margin-bottom: 0;

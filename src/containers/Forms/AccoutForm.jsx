@@ -18,7 +18,7 @@ function AccoutForm() {
         </div>
         <div className="checkbox">
           <label htmlFor="rememberMe">
-            <input type="checkbox" id="rememberMe" /> Remember Me
+            <input type="checkbox" id="rememberMe" className="mt-3Ex" /> Remember Me
           </label>
         </div>
         <button type="submit" className="btn btn-default center-block loginBtn">LOGIN</button>

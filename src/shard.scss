@@ -7,13 +7,17 @@
   $django-admin-login-body-container: #fff;
 
   .main-site {
-    background: #3BAAE9;
-    max-width: 1030px;
-    margin: auto;
 
     $sideBar-width: 240px;
     $sideBar-color: #3BAAE9;
+    $header-height: 50px;
     $main-color: #fff;
+
+    max-width: 1030px;
+    margin: auto;
+    background: #3BAAE9;
+
+
 
     .wrapper{
 
@@ -22,11 +26,11 @@
       background: $main-color;
 
       .sideBarWrapper {
-        position: absolute;
+        position: fixed;
         width: $sideBar-width;
         max-width: $sideBar-width;
-        left: -$sideBar-width;
-        top: 0;
+        margin-left: -$sideBar-width;
+        top: $header-height;
         background: $sideBar-color;
       }
 
@@ -61,13 +65,20 @@
   .vertical-middle { vertical-align: middle; }
   .vertical-bottom { vertical-align: bottom; }
 
-  /* Rules for usual margin */
+  /* Rules for usual margin, 
+     notes: _ represent dot sign
+            - represent minus sign */
   .mt-2 { margin-top: 2px; }
+  .mt-3Ex { margin-top: 3px!important; }
   .mt--0_5em { margin-top: -0.5em; }
   .mb-10 { margin-bottom: 10px; }
   .mb-20 { margin-bottom: 20px; }
   .mb-1_5em { margin-bottom: 1.5em; }
   .ml-2 { margin-left: 2px; }
+
+  /* Rules for usual padding */
+  .pt-6 { padding-top: 6px; }
+  .pt-50 { padding-top: 50px; }
 
   /* Rules for usual font icon color */
   $color-corrent: #0F7001;
@@ -95,15 +106,7 @@
   /* Example Zone */
   $color-logo: #176FDC;
   $color-logo-border: #CCD5DD;
-  // .thumbnail {
-  //   position: relative;
 
-  //   .label {
-  //     color: $color-logo;
-  //     border: 1px solid $color-logo-border;
-  //     border-radius: 50%;
-  //   }
-  // }
   .stack {
     position: relative;
     display: inline-block;
