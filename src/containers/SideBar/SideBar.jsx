@@ -15,7 +15,7 @@ function SideBar() {
   return (
     <div className="container-fuild container-sidebar">
 
-      <form className="form-inline theme-form mb-20">
+      <form className="theme-form mb-20">
         <div className="theme">
           <h4>Theme</h4>
           <div className="category-group mb-10">
@@ -23,17 +23,17 @@ function SideBar() {
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-8 col-sm-8 col-md-8">
+          <div className="col-sm-10">
             <input type="text" className="form-control" id="theme" placeholder="Enter theme here" />
           </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 text-center">
+          <div className="col-sm-2 col-sm-pull-1">
             <i className="fa fa-check-circle-o fa-2x mt-2 pristine" aria-hidden="true" />
           </div>
         </div>
       </form>
 
 
-      <form className="form-inline keywords-form mb-20">
+      <form className="keywords-form mb-20">
         <div className="keywords">
           <h4>keywords</h4>
           <div className="category-group mb-10">
@@ -42,10 +42,10 @@ function SideBar() {
             <Category text="xhtml" />
           </div>
           <div className="row">
-            <div className="col-xs-8 col-sm-8 col-md-8">
+            <div className="col-sm-10">
               <input type="text" className="form-control" id="theme" placeholder="Enter keywords here" />
             </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 text-center">
+            <div className="col-sm-2 col-sm-pull-1">
               <i className="fa fa-check-circle-o fa-2x mt-2 pristine" aria-hidden="true" />
             </div>
           </div>

@@ -36,6 +36,44 @@
     }
 
   }
+
+  /* component postItem */
+  .post-item {
+
+    .title {
+
+    }
+    
+    $color-border: #C3CED7;
+    .post-body {
+      position: relative;
+      padding: 1.2em;
+      color: #4A525A;
+      border: 1px solid $color-border;
+      border-radius: 0.35em;
+
+      .arrows {
+        position: absolute;
+        top: 0;
+        left: -1.4em;
+        color: #454D55;
+      }
+      
+      .toolkit {
+        margin-top: 1.5em;
+        min-width: 100px;
+        text-align: right;
+
+        a, i {
+          margin-right: .1em;
+        }
+      }
+
+      img {
+        max-height: 84px;
+      }
+    }
+  }
 }
 
 
