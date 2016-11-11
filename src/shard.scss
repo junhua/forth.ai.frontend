@@ -15,9 +15,7 @@
 
     max-width: 1030px;
     margin: auto;
-    background: #3BAAE9;
-
-
+    // background: #3BAAE9;
 
     .wrapper{
 
@@ -87,13 +85,16 @@
   $color-pristine: #6C6C6C;
   $color-circle-facebook: #2D4486;
   $color-facebook: #fff;
+  $color-facebook-official: #3c5b9a;
+  $github-color: #333333;
   .fa.pristine { color: $color-pristine; }
   .fa.correct, .fa.done{ color: $color-corrent; }
   .fa.error, .fa.remove { color: $color-error; }
   .fa.draft { color: $color-progress; }
   .fa.facebook-circle-color { color: $color-circle-facebook; }
   .fa.facebook-color { color: $color-facebook; }
-
+  .fa.facebook-official-color { color: $color-facebook-official;  }
+  .fa.github-color { color: $github-color; }
   /* Rules for font size */
   .fz0 { font-size: 0; }
   .fz12 { font-size: 12px; }
