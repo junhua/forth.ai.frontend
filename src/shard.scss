@@ -6,6 +6,8 @@
   $django-admin-login-body: #f8f8f8;
   $django-admin-login-body-container: #fff;
 
+  $udaciry-error: #f95c3c;
+
   .main-site {
 
     $sideBar-width: 240px;
@@ -103,43 +105,6 @@
   .fw-bolder { font-weight: bolder; }
   .fw-bold { font-weight: bold; }
 
-
-  /* Example Zone */
-  $color-logo: #176FDC;
-  $color-logo-border: #CCD5DD;
-
-  .stack {
-    position: relative;
-    display: inline-block;
-    margin-right: .5em;
-    font-size: 12px;
-    height: 3em;
-
-    .circle-thin {
-      display: inline-block;
-      height: 3em;
-      width: 3em;
-      line-height: 3em;
-      color: $color-logo;
-      overflow: hidden;
-      border: 1px solid $color-logo-border;
-      border-radius: 50%;
-    }
-
-    .subscript {
-      position: absolute;
-      left: 1.5em;
-      bottom: 0;
-    }
-  }
-
-  $color-account-new: #959595;
-
-  .add-account {
-    color: $color-account-new;
-    margin-right: .5em;
-  }
-
   /* Rules for usual button style, improve bootstrap v3.7 */
   $color-post: #fff;
   $color-post-bg: #13284B;
@@ -159,44 +124,4 @@
 
   /* Rules for media, bootstrp v3.7 */ 
   .inline-block { display: inline-block; }
-
-
-  /* component postItem */
-  .post-item {
-
-    .title {
-
-    }
-    
-    $color-border: #C3CED7;
-    .post-body {
-      position: relative;
-      padding: 1.2em;
-      color: #4A525A;
-      border: 1px solid $color-border;
-      border-radius: 0.35em;
-
-      .arrows {
-        position: absolute;
-        top: 0;
-        left: -1.4em;
-        color: #454D55;
-      }
-      
-      .toolkit {
-        margin-top: 1.5em;
-        min-width: 100px;
-        text-align: right;
-
-        a, i {
-          margin-right: .1em;
-        }
-      }
-
-      img {
-        max-height: 84px;
-      }
-    }
-  }
 }
-
