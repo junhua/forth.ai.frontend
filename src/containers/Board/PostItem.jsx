@@ -12,11 +12,14 @@ function PostItem() {
               <a href="#edit"><i className="fa fa-pencil" aria-hidden="true" /><span className="sr-only">edit</span></a>
             </h4>
           </div>
-          <div className="col-xs-6 text-right">
-            <a className="add-account" href="#add_account">
-              <i className="fa fa-plus-square-o fa-3x" aria-hidden="true" /><span className="sr-only">add account</span>
-            </a>
-            <StackIcon />
+          <div className="col-xs-6">
+            <div className="text-right">
+              <a className="add-account" href="#add_account">
+                <i className="fa fa-plus-square-o fa-3x vertical-top" aria-hidden="true" />
+                <span className="sr-only">add account</span>
+              </a>
+              <StackIcon />
+            </div>
           </div>
         </div>
       </div>
