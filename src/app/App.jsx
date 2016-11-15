@@ -1,19 +1,33 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import { connect } from 'react-redux';
+import { logoutUser } from '../containers/Account/actions';
 import Header from '../containers/Header/Header';
 import '../shard.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container-fuild pt-50">
-        <Header />
-        <div className="main-site">
-          {this.props.children}
-        </div>
+function App({ children, ...props }) {
+  return (
+    <div className="container-fuild pt-50">
+      <Header {...props} />
+      <div className="main-site">
+        {children}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default App;
+App.propTypes = {
+  isAuthenticated: React.PropTypes.bool.isRequired,
+  logout: React.PropTypes.func.isRequired,
+  children: React.PropTypes.node.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logoutUser()),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

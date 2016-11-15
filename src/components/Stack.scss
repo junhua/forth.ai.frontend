@@ -1,0 +1,38 @@
+/* Example Zone */
+
+:global {
+  $color-logo: #176FDC;
+  $color-logo-border: #CCD5DD;
+
+  .stack {
+    position: relative;
+    display: inline-block;
+    margin-right: .5em;
+    font-size: 12px;
+    height: 3em;
+
+    .circle-thin {
+      display: inline-block;
+      height: 3em;
+      width: 3em;
+      line-height: 3em;
+      color: $color-logo;
+      overflow: hidden;
+      border: 1px solid $color-logo-border;
+      border-radius: 50%;
+    }
+
+    .subscript {
+      position: absolute;
+      left: 1.5em;
+      bottom: 0;
+    }
+  }
+
+  $color-account-new: #959595;
+
+  .add-account {
+    color: $color-account-new;
+    margin-right: .5em;
+  }
+}
