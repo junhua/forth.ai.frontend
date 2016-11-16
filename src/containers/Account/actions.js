@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER, JWT_TOKEN } from './constants';
-import { checkHttpStatus, parseJSON } from '../../utils';
+import { checkHttpStatus, parseJSON, delay } from '../../utils';
 
 export function loginUserSuccess(token) {
   localStorage.setItem(JWT_TOKEN, token);
@@ -57,12 +57,12 @@ export function loginUser(email, password, redirect = '/') {
       },
       body: JSON.stringify({ email, password }),
     })
+    .then(delay(2000))
     .then(checkHttpStatus)
     .then(parseJSON)
     .then((response) => {
       try {
         jwtDecode(response.token);
-        console.log(jwtDecode(response.token));
         dispatch(loginUserSuccess(response.token));
         dispatch(push(redirect));
       } catch (e) {

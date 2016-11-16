@@ -19,9 +19,6 @@ const node = (
 
 const token = localStorage.getItem(JWT_TOKEN);
 
-
-console.log(JWT_TOKEN, token);
-console.log(checkTokenExpiry());
 if (checkTokenExpiry()) {
   store.dispatch(loginUserSuccess(token));
   store.dispatch(push('/'));

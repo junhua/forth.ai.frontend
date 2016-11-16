@@ -14,7 +14,6 @@ export function createReducer(initialState, reducerMap) {
 }
 
 export function checkHttpStatus(response) {
-  console.log(response.status);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -48,4 +47,16 @@ export function checkTokenExpiry() {
     }
   }
   return false;
+}
+
+export function delay(wait) {
+  return response => new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response);
+    }, wait);
+  });
+}
+
+export function validEmail(str) {
+  return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(str);
 }
