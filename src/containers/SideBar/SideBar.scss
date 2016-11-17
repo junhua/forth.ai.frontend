@@ -6,15 +6,25 @@
   $category-bgcolor: #DBE5ED;
   $category-color: #698198;
   
-  .category {
-    display: inline-block;
-    padding: .3em .6em;
-    margin-right: .4em;
-    margin-bottom: .3em;
-    color: $category-color;
-    border: 1px solid $category-color;
-    border-radius: 8px;
-    background: $category-bgcolor;
-  }
+  .category-group {
 
+    .category {
+      display: inline-block;
+      padding: .3em .6em;
+      margin-right: .4em;
+      margin-bottom: .3em;
+      color: $category-color;
+      border: 1px solid $category-color;
+      border-radius: 8px;
+      text-decoration: none;
+      background: $category-bgcolor;
+    }
+
+    a:hover{
+      opacity: .5;
+      text-decoration: none;
+    }
+
+  }
+  
 }

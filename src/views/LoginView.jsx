@@ -44,7 +44,7 @@ class LoginView extends Component {
     return (
       <div className="form-wrapper">
         <div className="form-pane">
-          <form className="form-account">
+          <form className="form-account" onSubmit={this.login}>
             <fieldset disabled={submitting}>
               <div className="form-group">
                 <label htmlFor="email">Account Email</label>
@@ -54,7 +54,6 @@ class LoginView extends Component {
                   id="email"
                   ref={node => (this.email = node)}
                   placeholder="Email"
-                  pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}"
                   autoFocus
                   required
                 />
@@ -83,7 +82,6 @@ class LoginView extends Component {
                 <button
                   type="submit"
                   className="btn btn-default center-block btn-login"
-                  onClick={this.login}
                 >LOGIN</button>
                 :
                 <button
