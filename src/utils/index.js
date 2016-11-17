@@ -60,3 +60,7 @@ export function delay(wait) {
 export function validEmail(str) {
   return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(str);
 }
+
+export function toArray(els) {
+  return Array.prototype.slice.call(els);
+}

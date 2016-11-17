@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItem from './PostItem';
+import { toArray } from '../../utils';
 import './Board.scss';
 
 function PostItemNew() {
@@ -38,14 +39,46 @@ function PostItemBtn() {
   );
 }
 
+function toggle(els, selectedIndex) {
+  els.map((el, index) => {
+    el.classList.remove('active');
+    if (selectedIndex === index) {
+      el.classList.add('active');
+    }
+    return el;
+  });
+}
+
+function toggleTab(selectedIndex) {
+  return (e) => {
+    e.stopPropagation();
+
+    console.log(e.target, selectedIndex);
+    const tabs = toArray(document.querySelectorAll('.board-container .nav-tab'));
+    const items = toArray(document.querySelectorAll('.board-container .nav-item'));
+    console.warn(tabs, items);
+
+    toggle(tabs, selectedIndex);
+    toggle(items, selectedIndex);
+  };
+}
+
 function Board() {
   return (
     <div className="container-fuild board-container">
       <ul className="nav nav-tabs nav-justified">
-        <li role="presentation" className="active"><a>Queue <i className="fa fa-calendar" aria-hidden="true" /></a></li>
-        <li role="presentation"><a>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a></li>
-        <li role="presentation"><a>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a></li>
-        <li role="presentation"><a>Settings <i className="fa fa-cog" aria-hidden="true" /></a></li>
+        <li role="presentation" className="nav-tab active">
+          <a href="#queue" onClick={toggleTab(0)}>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
+        </li>
+        <li role="presentation" className="nav-tab">
+          <a href="#analytics" onClick={toggleTab(1)}>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
+        </li>
+        <li role="presentation" className="nav-tab">
+          <a href="#plan" onClick={toggleTab(2)}>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
+        </li>
+        <li role="presentation" className="nav-tab">
+          <a href="#settings" onClick={toggleTab(3)}>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
+        </li>
       </ul>
 
       <ul className="nav navBody">
@@ -53,7 +86,7 @@ function Board() {
           <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
           <span className="sr-only">Loading...</span>
         </li>
-        <li className="queue">
+        <li className="nav-item active queue">
           <div className="clearfix posts">
             <PostItem />
             <PostItem />
@@ -61,12 +94,34 @@ function Board() {
             <PostItemBtn />
           </div>
         </li>
+        <li className="nav-item analytics">
+          <div className="clearfix posts">
+            <PostItem />
+            <PostItem />
+            <PostItemNew />
+          </div>
+        </li>
+        <li className="nav-item plan">
+          <div className="clearfix posts">
+            <PostItem />
+            <PostItem />
+            <PostItemBtn />
+          </div>
+        </li>
+        <li className="nav-item settings">
+          <div className="clearfix posts">
+            <PostItem />
+            <PostItemNew />
+            <PostItemBtn />
+          </div>
+        </li>
+
         {/* <div id="analytics"></div>
         <div id="plan"></div>
         <div id="settings"></div>*/}
       </ul>
 
-      <i className="fa fa-check-circle-o" aria-hidden="true" />
+      {/* <i className="fa fa-check-circle-o" aria-hidden="true" />
       <i className="fa fa-minus-circle" aria-hidden="true" />
       <i className="fa fa-tasks" aria-hidden="true" />
       <i className="fa fa-gear" aria-hidden="true" />
@@ -85,7 +140,7 @@ function Board() {
       <span className="fa-stack fa-lg">
         <i className="fa fa-square-o fa-stack-2x" />
         <i className="fa fa-twitter fa-stack-1x" />
-      </span>
+      </span>*/}
 
     </div>
   );

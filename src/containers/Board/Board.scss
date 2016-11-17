@@ -9,11 +9,18 @@
 
   $color-posts-border: #D0D0D0;
   $color-border: #C3CED7;
+  $active-color: #1870DD;
+  
+  
+  li.nav-tab.active a { color: $active-color; }
 
   .navBody {
     border: 1px solid $color-border;
     border-top: none;
   }
+
+  .nav-item { display: none; }
+  .nav-item.active { display: block; }
 
   .posts {
     width: 100%;
