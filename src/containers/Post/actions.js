@@ -12,8 +12,11 @@ export function postFetchRequest() {
   return { type: POST_FETCH_REQUEST };
 }
 
-export function postFetchFailure() {
-  return { type: POST_FETCH_FAILURE };
+export function postFetchFailure(error) {
+  return {
+    type: POST_FETCH_FAILURE,
+    payload: { error },
+  };
 }
 
 export function postFetchSuccess(data) {
@@ -27,17 +30,22 @@ export function fetchPost() {
   return (dispatch) => {
     dispatch(postFetchRequest());
     const config = {
-
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     };
     return fetch('http://192.168.99.100:8000/v1/posts/', config)
-      .then(delay(2000))
+      .then(delay(1000))
       .then(checkHttpStatus)
       .then(parseJSON)
       .then((response) => {
         dispatch(postFetchSuccess(response));
       })
       .catch((error) => {
-        dispatch(POST_FETCH_FAILURE(error));
+        dispatch(postFetchFailure(error));
       });
   };
 }

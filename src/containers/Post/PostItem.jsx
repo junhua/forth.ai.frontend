@@ -1,14 +1,14 @@
 import React from 'react';
 import StackIcon from '../../components/StackIcon';
 
-function PostItem() {
+function PostItem({ dateCreated, content }) {
   return (
     <div className="mb-1_5em post-item">
       <div className="title">
         <div className="row">
           <div className="col-xs-6">
             <h4>
-              <span className="modified-time">17 Jan 17 Mon 931PM</span>&nbsp;&nbsp;
+              <span className="modified-time">{dateCreated}</span>&nbsp;&nbsp;
               <a href="#edit"><i className="fa fa-pencil" aria-hidden="true" /><span className="sr-only">edit</span></a>
             </h4>
           </div>
@@ -31,15 +31,7 @@ function PostItem() {
               <i className="fa fa-arrows fa-2x arrows" aria-hidden="true" />
               <span className="sr-only">anchor</span>
             </a>
-            <p>
-              {'After you get up and running, you can place Font Awesome icons just about anywhere with the i tag. Some examples appreciatively re-used from the Bootstrap documentation.'}
-              {'After you get up and running, you can place Font Awesome icons just about anywhere with the i tag. Some examples appreciatively re-used from the Bootstrap documentation.'}
-              {'After you get up and running, you can place Font Awesome icons just about anywhere with the i tag. Some examples appreciatively re-used from the Bootstrap documentation.'}
-            </p>
-            <p>
-              {'After you get up and running, you can place Font Awesome icons just about anywhere with the i tag. Some examples appreciatively re-used from the Bootstrap documentation.'}
-              {'After you get up and running, you can place Font Awesome icons just about anywhere with the i tag. Some examples appreciatively re-used from the Bootstrap documentation.'}
-            </p>
+            <p>{content}</p>
           </div>
           <div className="media-left text-right">
             <img className="media-obejct" src="/assets/images/wiki_global.png" alt="..." />
@@ -54,5 +46,10 @@ function PostItem() {
     </div>
   );
 }
+
+PostItem.propTypes = {
+  dateCreated: React.PropTypes.string.isRequired,
+  content: React.PropTypes.string.isRequired,
+};
 
 export default PostItem;

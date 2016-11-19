@@ -1,9 +1,6 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { toArray } from '../../utils';
 import PostBoard from '../Post/PostBoard';
-import * as actionCreators from '../Post/actions';
 import './Board.scss';
 
 function toggle(els, selectedIndex) {
@@ -20,10 +17,8 @@ function toggleTab(selectedIndex) {
   return (e) => {
     e.stopPropagation();
 
-    console.log(e.target, selectedIndex);
     const tabs = toArray(document.querySelectorAll('.board-container .nav-tab'));
     const items = toArray(document.querySelectorAll('.board-container .nav-item'));
-    console.warn(tabs, items);
 
     toggle(tabs, selectedIndex);
     toggle(items, selectedIndex);
@@ -49,21 +44,17 @@ function Board() {
       </ul>
 
       <ul className="nav navBody">
-        <li className="loading text-center">
-          <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
-          <span className="sr-only">Loading...</span>
-        </li>
         <li className="nav-item active queue">
           <PostBoard />
         </li>
         <li className="nav-item analytics">
-          <PostBoard />
+          PostBoard
         </li>
         <li className="nav-item plan">
-          <PostBoard />
+          PostBoard
         </li>
         <li className="nav-item settings">
-          <PostBoard />
+          PostBoard
         </li>
       </ul>
 
@@ -92,13 +83,4 @@ function Board() {
   );
 }
 
-const mapStateToProps = state => ({
-  isFetching: state.posts.isFetching,
-  posts: state.posts.allPosts,
-});
-
-const mapDispatchProps = dispatch => ({
-  actions: bindActionCreators(actionCreators, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchProps)(Board);
+export default Board;

@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  allPost: null,
+  allPost: [],
   error: '',
 };
 

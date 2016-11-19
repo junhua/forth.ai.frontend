@@ -1,18 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PostItem from './PostItem';
-import PostItemNew from './PostItemNew';
+// import PostItemNew from './PostItemNew';
 import PostItemBtn from './PostItemBtn';
+import * as actionCreators from './actions';
 import './Post.scss';
 
-function PostBoard() {
-  return (
-    <div className="clearfix posts">
-      <PostItem />
-      <PostItem />
-      <PostItemNew />
-      <PostItemBtn />
-    </div>
-  );
+class PostBoard extends Component {
+
+  componentWillMount() {
+    console.log(this.props.actions);
+    this.props.actions.fetchPost();
+  }
+
+  componentDidMount() {
+    this.props.actions.fetchPost();
+  }
+
+  render() {
+    const { posts, isFetching } = this.props;
+
+    console.log(this.props.posts);
+
+    const postList = posts.map(
+      post => (<PostItem {...post} dateCreated={post.date_created} key={post.date_created} />)
+    );
+
+    return (
+      <div className="clearfix posts">
+        { isFetching &&
+          <div className="loading text-center">
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+            <span className="sr-only">Loading...</span>
+          </div>
+        }
+        {postList}
+        {/* <PostItemNew /> */}
+        <PostItemBtn />
+      </div>
+    );
+  }
 }
 
-export default PostBoard;
+PostBoard.propTypes = {
+  isFetching: React.PropTypes.bool.isRequired,
+  posts: React.PropTypes.array.isRequired,
+  actions: React.PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isFetching: state.posts.isFetching,
+  posts: state.posts.allPost,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actionCreators, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostBoard);
