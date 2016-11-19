@@ -1,88 +1,26 @@
-:global .board-container {
-  padding-top: 50px;
-  padding-left: 40px;
-  padding-right: 40px;
-
-  $normal-color: #6C6C6C;
-
-  a { color: $normal-color; }
-
-  $color-posts-border: #D0D0D0;
-  $color-border: #C3CED7;
-  $active-color: #1870DD;
-  
-  
-  li.nav-tab.active a { color: $active-color; }
-
-  .navBody {
-    border: 1px solid $color-border;
-    border-top: none;
-  }
-
-  .nav-item { display: none; }
-  .nav-item.active { display: block; }
-
-  .posts {
-    width: 100%;
-    padding-top: 20px;
+:global {
+  .board-container {
+    padding-top: 50px;
+    padding-left: 40px;
     padding-right: 40px;
-    padding-left: 60px;
-    // background: yellow;
-    min-height: 500px;
-    // border: 1px solid $color-posts-border;
-    // border-top: none;
 
-    .itemNew {
-      padding: 1em 1.5em;
-      border: 1px solid $color-border;
-    }
+    $normal-color: #6C6C6C;
 
-    .itemBtn {
-      padding: .5em;
-      border: 1px solid $color-border;
-    }
+    a { color: $normal-color; }
 
-  }
-
-  /* component postItem */
-  .post-item {
-
-    .title {
-
-    }
-    
+    $color-posts-border: #D0D0D0;
     $color-border: #C3CED7;
-    .post-body {
-      position: relative;
-      padding: 1.2em;
-      color: #4A525A;
+    $active-color: #1870DD;
+    
+    
+    li.nav-tab.active a { color: $active-color; }
+
+    .navBody {
       border: 1px solid $color-border;
-      border-radius: 0.35em;
-
-      .arrows {
-        position: absolute;
-        top: 0;
-        left: -1.4em;
-        color: #454D55;
-      }
-      
-      .toolkit {
-        margin-top: 1.5em;
-        min-width: 100px;
-        text-align: right;
-
-        a, i {
-          margin-right: .1em;
-        }
-      }
-
-      img {
-        max-height: 84px;
-      }
+      border-top: none;
     }
+
+    .nav-item { display: none; }
+    .nav-item.active { display: block; }
   }
 }
-
-
-
-

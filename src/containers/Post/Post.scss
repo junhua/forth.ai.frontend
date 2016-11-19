@@ -1,0 +1,109 @@
+:global {
+  $color-border: #C3CED7;
+
+  .posts {
+    width: 100%;
+    padding-top: 20px;
+    padding-right: 40px;
+    padding-left: 60px;
+    // background: yellow;
+    min-height: 500px;
+    // border: 1px solid $color-posts-border;
+    // border-top: none;
+
+    .itemNew {
+      padding: 1em 1.5em;
+      border: 1px solid $color-border;
+    }
+
+    .itemBtn {
+      padding: .5em;
+      border: 1px solid $color-border;
+    }
+
+  }
+
+  /* component postItem */
+  .post-item {
+
+    .title {
+
+    }
+    
+    .post-body {
+      position: relative;
+      padding: 1.2em;
+      color: #4A525A;
+      border: 1px solid $color-border;
+      border-radius: 0.35em;
+
+      .arrows {
+        position: absolute;
+        top: 0;
+        left: -1.4em;
+        color: #454D55;
+      }
+      
+      .toolkit {
+        margin-top: 1.5em;
+        min-width: 100px;
+        text-align: right;
+        opacity: 0;
+        transition: opacity 500ms;
+
+        a, i {
+          margin-right: .1em;
+        }
+      }
+
+      &:hover .toolkit {
+        opacity: 1;
+      }
+
+      img {
+        max-height: 84px;
+      }
+    }
+  }
+
+  /* component PostItemNew */
+  .post-item-new {
+
+    .composer-wrapper {
+      position: relative;
+    }
+
+    .backdrop {
+      position: absolute;
+      z-index: 0;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .composer-textarea-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .composer, .highlights {
+      margin: 0;
+      padding: 10px 20px;
+      resize: none;
+      width: 100%;
+      min-height: 150px;
+      max-height: 250px;
+      font-size: 14px;
+      line-height: 1.2;
+      overflow: auto;
+      background-clip: padding-box;
+    }
+
+    .highlights {
+      width: 100%;
+      color: transparent;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+
+}
