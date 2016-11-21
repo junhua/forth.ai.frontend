@@ -5,7 +5,7 @@
     width: 100%;
     padding-top: 20px;
     padding-right: 40px;
-    padding-left: 60px;
+    // padding-left: 60px;
     // background: yellow;
     min-height: 500px;
     // border: 1px solid $color-posts-border;
@@ -18,6 +18,8 @@
 
     .itemBtn {
       padding: .5em;
+      margin-left: 60px;
+
       border: 1px solid $color-border;
     }
 
@@ -25,11 +27,24 @@
 
   /* component postItem */
   .post-item {
-
+    padding-left: 60px;
+    
     .title {
 
     }
     
+    .arrows, .comment {
+      position: absolute;
+      top: 0;
+      left: -1.4em;
+      color: #454D55;
+    }
+
+    .arrows { display: none; }
+
+    &:hover .arrows { display: block; }
+    &:hover .comment { display: none; }
+
     .post-body {
       position: relative;
       padding: 1.2em;
@@ -37,38 +52,32 @@
       border: 1px solid $color-border;
       border-radius: 0.35em;
 
-      .arrows {
-        position: absolute;
-        top: 0;
-        left: -1.4em;
-        color: #454D55;
-      }
-      
-      .toolkit {
-        margin-top: 1.5em;
-        min-width: 100px;
-        text-align: right;
-        opacity: 0;
-        transition: opacity 500ms;
-
-        a, i {
-          margin-right: .1em;
-        }
-      }
-
-      &:hover .toolkit {
-        opacity: 1;
-      }
-
       img {
         max-height: 84px;
       }
+    }
+
+    .toolkit {
+      margin-top: 1.5em;
+      min-width: 100px;
+      text-align: right;
+      opacity: 0;
+      transition: opacity 500ms;
+
+      a, i {
+        margin-right: .1em;
+      }
+    }
+
+    &:hover .toolkit {
+      opacity: 1;
     }
   }
 
   /* component PostItemNew */
   .post-item-new {
-
+    padding-left: 60px;
+    
     .composer-wrapper {
       position: relative;
     }

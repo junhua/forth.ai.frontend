@@ -26,9 +26,13 @@ function PostItem({ dateCreated, content }) {
       <div className="post-body">
         <div className="media">
           <div className="media-body">
-            <h4 className="media-heading">Media heading</h4>
+            {/* <h4 className="media-heading">Media heading</h4> */ }
             <a href="#anchor">
               <i className="fa fa-arrows fa-2x arrows" aria-hidden="true" />
+              <span className="sr-only">anchor</span>
+            </a>
+            <a href="#anchor">
+              <i className="fa fa-comment fa-2x comment" aria-hidden="true" />
               <span className="sr-only">anchor</span>
             </a>
             <p>{content}</p>

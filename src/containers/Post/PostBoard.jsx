@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
-// import PostItemNew from './PostItemNew';
+import PostItemNew from './PostItemNew';
 import PostItemBtn from './PostItemBtn';
 import * as actionCreators from './actions';
 import './Post.scss';
@@ -29,7 +29,7 @@ class PostBoard extends Component {
           </div>
         }
         {postList}
-        {/* <PostItemNew /> */}
+        <PostItemNew />
         <PostItemBtn />
       </div>
     );
