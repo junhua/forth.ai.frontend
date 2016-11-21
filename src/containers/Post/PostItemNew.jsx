@@ -17,10 +17,10 @@ function handleInput(e) {
   el.style.height = `${height}px`;
 }
 
-function PostItemNew() {
+function PostItemNew({ onSubmit }) {
   return (
     <div className="mb-1_5em post-item-new">
-      <form className="post-form" onSubmit={(e) => { e.preventDefault(); }}>
+      <form className="post-form" onSubmit={(e) => { e.preventDefault(); onSubmit(document.querySelector('#content').value); }}>
         <input type="url" className="form-control mb-1_5em" placeholder="URL" pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?" />
         <div className="only-draft">
           <div className="composer-wrapper">
@@ -30,6 +30,7 @@ function PostItemNew() {
             <div className="composer-textarea-wrapper mb-1_5em">
               <textarea
                 className="form-control composer"
+                id="content"
                 placeholder={'"What do you want to share?"'}
                 autoComplete="off"
                 onChange={handleInput}
@@ -53,5 +54,9 @@ function PostItemNew() {
     </div>
   );
 }
+
+PostItemNew.propTypes = {
+  onSubmit: React.PropTypes.func.isRequired,
+};
 
 export default PostItemNew;

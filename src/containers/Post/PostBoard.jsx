@@ -8,16 +8,24 @@ import * as actionCreators from './actions';
 import './Post.scss';
 
 class PostBoard extends Component {
+  constructor(props) {
+    super(props);
+    this.handleCreatePost = this.handleCreatePost.bind(this);
+  }
 
   componentDidMount() {
     this.props.actions.fetchPosts();
   }
 
+  handleCreatePost(content) {
+    this.props.actions.createPost(2, [], [], content);
+  }
+
   render() {
     const { posts, isFetching } = this.props;
 
-    const postList = posts.map(
-      post => (<PostItem {...post} dateCreated={post.date_created} key={post.date_created} />)
+    const postList = !isFetching && posts.map(
+      post => (<PostItem {...post} dateCreated={post.date_created} key={post.id} />)
     );
 
     return (
@@ -29,7 +37,7 @@ class PostBoard extends Component {
           </div>
         }
         {postList}
-        <PostItemNew />
+        <PostItemNew onSubmit={this.handleCreatePost} />
         <PostItemBtn />
       </div>
     );

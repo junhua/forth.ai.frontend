@@ -9,6 +9,8 @@ import {
 // import { loginFailure } from '../Account/actions';
 import { checkHttpStatus, parseJSON, delay } from '../../utils';
 
+const ROOT_URL = 'http://192.168.99.100:8000';
+
 export function fetchPostsRequest() {
   return { type: FETCH_POSTS_REQUEST };
 }
@@ -65,18 +67,49 @@ export function postUpdateSuccess() {
 }
 
 
-export function postCreateRequest() {
+export function createPostRequest() {
   return { type: CREATE_POST_REQUEST };
 }
 
-export function postCreateFailure() {
-  return { type: CREATE_POST_FAILURE };
+export function createPostFailure(error) {
+  return {
+    type: CREATE_POST_FAILURE,
+    payload: { error },
+  };
 }
 
-export function postCreateSuccess() {
-  return { type: CREATE_POST_SUCCESS };
+export function createPostSuccess(data) {
+  return {
+    type: CREATE_POST_SUCCESS,
+    payload: { data },
+  };
 }
 
+export function createPost(type = 2, themes = [], keywords = [], content) {
+  return (dispatch) => {
+    dispatch(createPostRequest());
+
+    const config = {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ type, themes, keywords, content }),
+    };
+
+    return fetch(`${ROOT_URL}/v1/posts/`, config)
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(createPostSuccess(response));
+      })
+      .catch((error) => {
+        dispatch(createPostFailure(error));
+      });
+  };
+}
 
 export function postDeleteRequest() {
   return { type: DELETE_POST_REQUEST };

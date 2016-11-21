@@ -9,6 +9,7 @@ import {
 const initialState = {
   isFetching: false,
   allPost: [],
+  singlePost: {},
   error: '',
 };
 
@@ -46,7 +47,7 @@ export default createReducer(initialState, {
   [CREATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: payload.data,
+      allPost: state.allPost.concat([payload.data]),
       error: '',
     })
   ),
