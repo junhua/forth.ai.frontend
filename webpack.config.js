@@ -17,6 +17,7 @@ module.exports = {
     main: [
       "font-awesome-webpack",
       "bootstrap-loader",
+      "react-hot-loader/patch",
       "webpack-dev-server/client?http://" + host + ":" + port,
       "webpack/hot/only-dev-server",
       "./src/index"
@@ -36,7 +37,7 @@ module.exports = {
   module: {
     preLoaders: [ { test: /\.jsx?$/, include: path.join(__dirname, 'src'), loader: "eslint-loader" } ],
     loaders: [
-      { test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, loader: "react-hot-loader!babel-loader" },
+      { test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.(scss|sass)$/, loader: "style-loader!css-loader?modules&importLoaders=2&localIdentName=[name]___[local]___[hash:base64:5]!postcss-loader!sass-loader" },
       {
