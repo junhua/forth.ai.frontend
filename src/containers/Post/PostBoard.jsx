@@ -9,19 +9,12 @@ import './Post.scss';
 
 class PostBoard extends Component {
 
-  componentWillMount() {
-    console.log(this.props.actions);
-    this.props.actions.fetchPost();
-  }
-
   componentDidMount() {
-    this.props.actions.fetchPost();
+    this.props.actions.fetchPosts();
   }
 
   render() {
     const { posts, isFetching } = this.props;
-
-    console.log(this.props.posts);
 
     const postList = posts.map(
       post => (<PostItem {...post} dateCreated={post.date_created} key={post.date_created} />)

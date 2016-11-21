@@ -1,34 +1,35 @@
 import fetch from 'isomorphic-fetch';
 import {
-  POST_FETCH_REQUEST, POST_FETCH_FAILURE, POST_FETCH_SUCCESS,
-  POST_UPDATE_REQUEST, POST_UPDATE_FAILURE, POST_UPDATE_SUCCESS,
-  POST_CREATE_REQUEST, POST_CREATE_FAILURE, POST_CREATE_SUCCESS,
-  POST_DELETE_REQUEST, POST_DELETE_FAILURE, POST_DELETE_SUCCESS,
+  FETCH_POSTS_REQUEST, FETCH_POSTS_FAILURE, FETCH_POSTS_SUCCESS,
+  // FETCH_POST_REQUEST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS,
+  UPDATE_POST_REQUEST, UPDATE_POST_FAILURE, UPDATE_POST_SUCCESS,
+  CREATE_POST_REQUEST, CREATE_POST_FAILURE, CREATE_POST_SUCCESS,
+  DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
 } from './constants';
 // import { loginFailure } from '../Account/actions';
 import { checkHttpStatus, parseJSON, delay } from '../../utils';
 
-export function postFetchRequest() {
-  return { type: POST_FETCH_REQUEST };
+export function fetchPostsRequest() {
+  return { type: FETCH_POSTS_REQUEST };
 }
 
-export function postFetchFailure(error) {
+export function fetchPostsFailure(error) {
   return {
-    type: POST_FETCH_FAILURE,
+    type: FETCH_POSTS_FAILURE,
     payload: { error },
   };
 }
 
-export function postFetchSuccess(data) {
+export function fetchPostsSuccess(data) {
   return {
-    type: POST_FETCH_SUCCESS,
+    type: FETCH_POSTS_SUCCESS,
     payload: { data },
   };
 }
 
-export function fetchPost() {
+export function fetchPosts() {
   return (dispatch) => {
-    dispatch(postFetchRequest());
+    dispatch(fetchPostsRequest());
     const config = {
       method: 'GET',
       credentials: 'include',
@@ -42,49 +43,49 @@ export function fetchPost() {
       .then(checkHttpStatus)
       .then(parseJSON)
       .then((response) => {
-        dispatch(postFetchSuccess(response));
+        dispatch(fetchPostsSuccess(response));
       })
       .catch((error) => {
-        dispatch(postFetchFailure(error));
+        dispatch(fetchPostsFailure(error));
       });
   };
 }
 
 
 export function postUpdateRequest() {
-  return { type: POST_UPDATE_REQUEST };
+  return { type: UPDATE_POST_REQUEST };
 }
 
 export function postUpdateFailure() {
-  return { type: POST_UPDATE_FAILURE };
+  return { type: UPDATE_POST_FAILURE };
 }
 
 export function postUpdateSuccess() {
-  return { type: POST_UPDATE_SUCCESS };
+  return { type: UPDATE_POST_SUCCESS };
 }
 
 
 export function postCreateRequest() {
-  return { type: POST_CREATE_REQUEST };
+  return { type: CREATE_POST_REQUEST };
 }
 
 export function postCreateFailure() {
-  return { type: POST_CREATE_FAILURE };
+  return { type: CREATE_POST_FAILURE };
 }
 
 export function postCreateSuccess() {
-  return { type: POST_CREATE_SUCCESS };
+  return { type: CREATE_POST_SUCCESS };
 }
 
 
 export function postDeleteRequest() {
-  return { type: POST_DELETE_REQUEST };
+  return { type: DELETE_POST_REQUEST };
 }
 
 export function postDeleteFaliure() {
-  return { type: POST_DELETE_FAILURE };
+  return { type: DELETE_POST_FAILURE };
 }
 
 export function postDeleteSuccess() {
-  return { type: POST_DELETE_SUCCESS };
+  return { type: DELETE_POST_SUCCESS };
 }
