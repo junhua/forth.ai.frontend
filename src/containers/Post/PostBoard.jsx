@@ -8,24 +8,56 @@ import * as actionCreators from './actions';
 import './Post.scss';
 
 class PostBoard extends Component {
+
   constructor(props) {
     super(props);
     this.handleCreatePost = this.handleCreatePost.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleDeletePost = this.handleDeletePost.bind(this);
+  }
+
+  state = {
+    creating: false,
   }
 
   componentDidMount() {
     this.props.actions.fetchPosts();
   }
 
+  // shouldComponentUpdate() {
+  //   if (this.props.isFetching) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  handleToggle(e) {
+    e.stopPropagation();
+    this.setState({ creating: !this.state.creating });
+  }
+
   handleCreatePost(content) {
     this.props.actions.createPost(2, [], [], content);
   }
 
+  handleDeletePost(id) {
+    return (e) => {
+      e.stopPropagation();
+      this.props.actions.deletePost(id);
+    };
+  }
+
   render() {
+    const { creating } = this.state;
     const { posts, isFetching } = this.props;
 
-    const postList = !isFetching && posts.map(
-      post => (<PostItem {...post} dateCreated={post.date_created} key={post.id} />)
+    const postList = posts.map(
+      post => (
+        <PostItem
+          {...post} dateCreated={post.date_created} key={post.id}
+          handleDeletePost={this.handleDeletePost(post.id)}
+        />
+      )
     );
 
     return (
@@ -37,8 +69,11 @@ class PostBoard extends Component {
           </div>
         }
         {postList}
-        <PostItemNew onSubmit={this.handleCreatePost} />
-        <PostItemBtn />
+        {creating ?
+          <PostItemNew onSubmit={this.handleCreatePost} />
+          :
+          <PostItemBtn onToggle={this.handleToggle} />
+        }
       </div>
     );
   }

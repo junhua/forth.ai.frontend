@@ -111,14 +111,41 @@ export function createPost(type = 2, themes = [], keywords = [], content) {
   };
 }
 
-export function postDeleteRequest() {
+export function deletePostRequest() {
   return { type: DELETE_POST_REQUEST };
 }
 
-export function postDeleteFaliure() {
-  return { type: DELETE_POST_FAILURE };
+export function deletePostFaliure(error) {
+  return {
+    type: DELETE_POST_FAILURE,
+    payload: { error },
+  };
 }
 
-export function postDeleteSuccess() {
-  return { type: DELETE_POST_SUCCESS };
+export function deletePostSuccess(id) {
+  return {
+    type: DELETE_POST_SUCCESS,
+    payload: { id },
+  };
+}
+
+export function deletePost(id) {
+  return (dispatch) => {
+    dispatch(deletePostRequest());
+
+    const config = {
+      method: 'DELETE',
+      credentials: 'include',
+    };
+
+    return fetch(`${ROOT_URL}/v1/posts/${id}/`, config)
+      .then(delay(1000))
+      .then(checkHttpStatus)
+      .then(() => {
+        dispatch(deletePostSuccess(id));
+      })
+      .catch((error) => {
+        dispatch(deletePostFaliure(error));
+      });
+  };
 }

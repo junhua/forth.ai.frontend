@@ -1,7 +1,7 @@
 import React from 'react';
 import StackIcon from '../../components/StackIcon';
 
-function PostItem({ dateCreated, content }) {
+function PostItem({ dateCreated, content, handleDeletePost }) {
   return (
     <div className="mb-1_5em post-item">
       <div className="title">
@@ -41,7 +41,7 @@ function PostItem({ dateCreated, content }) {
             <img className="media-obejct" src="/assets/images/wiki_global.png" alt="..." />
             <div className="text-right toolkit">
               <a className="" href="#done"><i className="fa fa-check-circle-o fa-2x done" aria-hidden="true" /><span className="sr-only">done</span></a>
-              <a className="" href="#remove"><i className="fa fa-times-circle-o fa-2x remove" aria-hidden="true" /><span className="sr-only">remove</span></a>
+              <a className="" href="#remove" onClick={handleDeletePost}><i className="fa fa-times-circle-o fa-2x remove" aria-hidden="true" /><span className="sr-only">remove</span></a>
               <a className="" href="#draft"><i className="fa fa-edit fa-2x draft" aria-hidden="true" /><span className="sr-only">edit</span></a>
             </div>
           </div>
@@ -54,6 +54,7 @@ function PostItem({ dateCreated, content }) {
 PostItem.propTypes = {
   dateCreated: React.PropTypes.string.isRequired,
   content: React.PropTypes.string.isRequired,
+  handleDeletePost: React.PropTypes.func.isRequired,
 };
 
 export default PostItem;
