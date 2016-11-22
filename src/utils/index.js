@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
@@ -34,7 +35,6 @@ export const requireAuthentication = UserAuthWrapper({
   wrapperDisplayName: 'UserIsJWTAuthenticated',
 });
 
-
 export function checkTokenExpiry() {
   const jwt = localStorage.getItem(JWT_TOKEN);
   if (jwt) {
@@ -63,4 +63,19 @@ export function validEmail(str) {
 
 export function toArray(els) {
   return Array.prototype.slice.call(els);
+}
+
+export function fetchJSON(url, options) {
+  options.headers = Object.assign({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }, options.headers);
+
+  if (options.body && typeof options.body !== 'string') {
+    options.body = JSON.stringify(options.body);
+  }
+
+  return fetch(url, options)
+    .then(checkHttpStatus)
+    .then(parseJSON);
 }

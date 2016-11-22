@@ -12,7 +12,7 @@ class PostBoard extends Component {
   constructor(props) {
     super(props);
     this.handleCreatePost = this.handleCreatePost.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+    this.toggleCreate = this.toggleCreate.bind(this);
     this.handleDeletePost = this.handleDeletePost.bind(this);
   }
 
@@ -31,13 +31,20 @@ class PostBoard extends Component {
   //   return true;
   // }
 
-  handleToggle(e) {
+  toggleCreate(e) {
     e.stopPropagation();
     this.setState({ creating: !this.state.creating });
   }
 
-  handleCreatePost(content) {
-    this.props.actions.createPost(2, [], [], content);
+  handleCreatePost(post) {
+    this.props.actions.createPost(2, [], [], post.content);
+  }
+
+  handleUpdatePost(post) {
+    return (newPost) => {
+      const mergePost = Object.assign({}, post, newPost);
+      this.props.actions.updatePost(mergePost);
+    };
   }
 
   handleDeletePost(id) {
@@ -54,7 +61,9 @@ class PostBoard extends Component {
     const postList = posts.map(
       post => (
         <PostItem
-          {...post} dateCreated={post.date_created} key={post.id}
+          {...this.props}
+          post={post} key={post.id}
+          handleUpdatePost={this.handleUpdatePost(post)}
           handleDeletePost={this.handleDeletePost(post.id)}
         />
       )
@@ -72,7 +81,7 @@ class PostBoard extends Component {
         {creating ?
           <PostItemNew onSubmit={this.handleCreatePost} />
           :
-          <PostItemBtn onToggle={this.handleToggle} />
+          <PostItemBtn onToggle={this.toggleCreate} />
         }
       </div>
     );
@@ -82,12 +91,18 @@ class PostBoard extends Component {
 PostBoard.propTypes = {
   isFetching: React.PropTypes.bool.isRequired,
   posts: React.PropTypes.array.isRequired,
+  // pending: React.PropTypes.bool.isRequired,
+  // success: React.PropTypes.bool.isRequired,
+  // failure: React.PropTypes.bool.isRequired,
   actions: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   isFetching: state.posts.isFetching,
   posts: state.posts.allPost,
+  pending: state.posts.isFetching,
+  success: !state.posts.isFetching && !state.posts.error,
+  failure: !state.posts.isFetching && !!state.posts.error,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,7 +1,7 @@
 import { createReducer } from '../../utils';
 import {
   FETCH_POSTS_REQUEST, FETCH_POSTS_FAILURE, FETCH_POSTS_SUCCESS,
-  // UPDATE_POST_REQUEST, UPDATE_POST_FAILURE, UPDATE_POST_SUCCESS,
+  UPDATE_POST_REQUEST, UPDATE_POST_FAILURE, UPDATE_POST_SUCCESS,
   CREATE_POST_REQUEST, CREATE_POST_FAILURE, CREATE_POST_SUCCESS,
   DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
 } from './constants';
@@ -22,7 +22,7 @@ export default createReducer(initialState, {
   [FETCH_POSTS_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: payload.data,
+      allPost: payload.posts,
       error: '',
     })
   ),
@@ -32,6 +32,26 @@ export default createReducer(initialState, {
       error: payload.error,
     })
   ),
+
+  [UPDATE_POST_REQUEST]: state => (
+    Object.assign({}, state, {
+      isFetching: true,
+    })
+  ),
+  [UPDATE_POST_FAILURE]: (state, payload) => (
+    Object.assign({}, state, {
+      isFetching: false,
+      error: payload.error,
+    })
+  ),
+  [UPDATE_POST_SUCCESS]: (state, payload) => (
+    Object.assign({}, state, {
+      isFetching: false,
+      allPost: state.allPost.map(post => (post.id === payload.post.id ? payload.post : post)),
+      error: '',
+    })
+  ),
+
 
   [CREATE_POST_REQUEST]: state => (
     Object.assign({}, state, {
@@ -47,10 +67,11 @@ export default createReducer(initialState, {
   [CREATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: state.allPost.concat([payload.data]),
+      allPost: state.allPost.concat([payload.post]),
       error: '',
     })
   ),
+
   [DELETE_POST_REQUEST]: state => (
     Object.assign({}, state, {
       isFetching: true,

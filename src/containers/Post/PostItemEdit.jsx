@@ -53,10 +53,10 @@ const vaildate = (values) => {
 };
 
 
-function PostItemNew(props) {
+function PostItemEdit(props) {
   const { handleSubmit, pristine, submitting } = props;
   return (
-    <div className="mb-1_5em post-item-new">
+    <div className="mb-1_5em post-item-edit">
       <form className="post-form" onSubmit={handleSubmit}>
         {/* <input type="url"className="form-control mb-1_5em" placeholder="URL"
           pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?" /> */ }
@@ -87,13 +87,14 @@ function PostItemNew(props) {
   );
 }
 
-PostItemNew.propTypes = {
-  handleSubmit: React.PropTypes.func.isRequired,
-  pristine: React.PropTypes.bool.isRequired,
-  submitting: React.PropTypes.bool.isRequired,
+PostItemEdit.propTypes = {
+  handleSubmit: React.PropTypes.func,
+  pristine: React.PropTypes.bool,
+  submitting: React.PropTypes.bool,
+  // content: React.PropTypes.string,
 };
 
 export default reduxForm({
-  form: 'postNewForm',
+  form: 'postEditForm',
   vaildate,
-})(PostItemNew);
+})(PostItemEdit);

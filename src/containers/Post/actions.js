@@ -7,7 +7,7 @@ import {
   DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
 } from './constants';
 // import { loginFailure } from '../Account/actions';
-import { checkHttpStatus, parseJSON, delay } from '../../utils';
+import { fetchJSON, checkHttpStatus, delay } from '../../utils';
 
 const ROOT_URL = 'http://192.168.99.100:8000';
 
@@ -22,10 +22,10 @@ export function fetchPostsFailure(error) {
   };
 }
 
-export function fetchPostsSuccess(data) {
+export function fetchPostsSuccess(posts) {
   return {
     type: FETCH_POSTS_SUCCESS,
-    payload: { data },
+    payload: { posts },
   };
 }
 
@@ -35,15 +35,10 @@ export function fetchPosts() {
     const config = {
       method: 'GET',
       credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
     };
-    return fetch('http://192.168.99.100:8000/v1/posts/', config)
+
+    return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
       .then(delay(1000))
-      .then(checkHttpStatus)
-      .then(parseJSON)
       .then((response) => {
         dispatch(fetchPostsSuccess(response));
       })
@@ -54,16 +49,42 @@ export function fetchPosts() {
 }
 
 
-export function postUpdateRequest() {
+export function updatePostRequest() {
   return { type: UPDATE_POST_REQUEST };
 }
 
-export function postUpdateFailure() {
-  return { type: UPDATE_POST_FAILURE };
+export function updatePostFailure(error) {
+  return {
+    type: UPDATE_POST_FAILURE,
+    payload: { error },
+  };
 }
 
-export function postUpdateSuccess() {
-  return { type: UPDATE_POST_SUCCESS };
+export function updatePostSuccess(post) {
+  return {
+    type: UPDATE_POST_SUCCESS,
+    payload: { post },
+  };
+}
+
+export function updatePost(post) {
+  return (dispatch) => {
+    dispatch(updatePostRequest);
+
+    const config = {
+      method: 'PUT',
+      credentials: 'include',
+      body: JSON.stringify(post),
+    };
+
+    return fetchJSON(`${ROOT_URL}/v1/posts/${post.id}/`, config)
+      .then((response) => {
+        dispatch(updatePostSuccess(response));
+      })
+      .catch((error) => {
+        dispatch(updatePostFailure(error));
+      });
+  };
 }
 
 
@@ -78,10 +99,10 @@ export function createPostFailure(error) {
   };
 }
 
-export function createPostSuccess(data) {
+export function createPostSuccess(post) {
   return {
     type: CREATE_POST_SUCCESS,
-    payload: { data },
+    payload: { post },
   };
 }
 
@@ -92,16 +113,10 @@ export function createPost(type = 2, themes = [], keywords = [], content) {
     const config = {
       method: 'POST',
       credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({ type, themes, keywords, content }),
     };
 
-    return fetch(`${ROOT_URL}/v1/posts/`, config)
-      .then(checkHttpStatus)
-      .then(parseJSON)
+    return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
       .then((response) => {
         dispatch(createPostSuccess(response));
       })

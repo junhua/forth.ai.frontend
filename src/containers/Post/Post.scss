@@ -74,9 +74,8 @@
     }
   }
 
-  /* component PostItemNew */
-  .post-item-new {
-    padding-left: 60px;
+  /* component PostItemNew, component PostItemEdit */
+  .post-item-new, .post-item-edit {
     
     .composer-wrapper {
       position: relative;
@@ -114,5 +113,7 @@
       word-wrap: break-word;
     }
   }
+  
+  .post-item-new { padding-left: 60px; }
 
 }
