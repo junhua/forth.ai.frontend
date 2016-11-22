@@ -32,6 +32,8 @@ RUN npm install --production --registry=https://registry.npm.taobao.org \
 # Add your source files
 COPY . .
 
+RUN npm run build
+
 RUN chown -R nodejs:nodejs /home/nodejs/app
 
 # For main web interface

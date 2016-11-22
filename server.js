@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var webpackDevServer = require("webpack-dev-server");
+var opener = require('opener');
 var config = require('./webpack.config');
 
 var host = (process.env.HOST || 'localhost')
@@ -30,4 +31,5 @@ new webpackDevServer(webpack(config), {
   }
 
   console.log("Listennig at http://" + host + ":" + port + "/");
+  opener("http://" + host + ":" + port + "/home/");
 })
