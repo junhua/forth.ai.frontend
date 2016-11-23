@@ -7,10 +7,8 @@ import {
   DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
 } from './constants';
 // import { loginFailure } from '../Account/actions';
-import { fetchJSON, checkHttpStatus, delay } from '../../utils';
+import { fetchJSON, checkHttpStatus, delay, ROOT_URL } from '../../utils';
 import { JWT_TOKEN } from '../Account/constants';
-
-const ROOT_URL = 'http://192.168.99.100:8000';
 
 export function fetchPostsRequest() {
   return { type: FETCH_POSTS_REQUEST };

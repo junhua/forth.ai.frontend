@@ -20,7 +20,7 @@ class PostBoard extends Component {
     creating: false,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.actions.fetchPosts();
   }
 

@@ -107,3 +107,5 @@ export function readCookie(name) {
 export function eraseCookie(name) {
   createCookie(name, '', -1);
 }
+
+export const ROOT_URL = process.env.NODE_ENV === 'production' ? 'http://pqapi.uiplay.cn' : 'http://192.168.99.100:8000';

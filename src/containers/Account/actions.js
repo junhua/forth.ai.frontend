@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER, JWT_TOKEN } from './constants';
-import { checkHttpStatus, parseJSON, delay } from '../../utils';
+import { checkHttpStatus, parseJSON, delay, ROOT_URL } from '../../utils';
 
 export function loginUserSuccess(token) {
   localStorage.setItem(JWT_TOKEN, token);
@@ -48,7 +48,7 @@ export function logoutAndRedirect() {
 export function loginUser(email, password, redirect = '/') {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    return fetch('http://192.168.99.100:8000/rest-auth/login/', {
+    return fetch(`${ROOT_URL}/rest-auth/login/`, {
       method: 'POST',
       credentials: 'include',
       headers: {
