@@ -8,6 +8,7 @@ import {
 } from './constants';
 // import { loginFailure } from '../Account/actions';
 import { fetchJSON, checkHttpStatus, delay } from '../../utils';
+import { JWT_TOKEN } from '../Account/constants';
 
 const ROOT_URL = 'http://192.168.99.100:8000';
 
@@ -35,6 +36,9 @@ export function fetchPosts() {
     const config = {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        Authorization: `JWT ${localStorage.getItem(JWT_TOKEN)}`,
+      },
     };
 
     return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
