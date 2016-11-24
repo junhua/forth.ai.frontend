@@ -6,7 +6,7 @@ import PostItemNew from './PostItemNew';
 import PostItemBtn from './PostItemBtn';
 import * as actionCreators from './actions';
 import './Post.scss';
-import { stopPropagation } from '../../utils';
+import { stopPropagation, getJWTFromStorage } from '../../utils';
 
 class PostBoard extends Component {
 
@@ -25,7 +25,7 @@ class PostBoard extends Component {
   }
 
   componentWillMount() {
-    this.props.actions.fetchPosts();
+    this.props.actions.fetchPosts(getJWTFromStorage());
   }
 
   // shouldComponentUpdate() {

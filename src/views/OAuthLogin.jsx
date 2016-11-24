@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { JWT_TOKEN } from '../containers/Account/constants';
 import * as actionCreators from '../containers/Account/actions';
-import { readCookie, checkTokenExpiry } from '../utils';
+import { readCookie, checkTokenExpiry, setJWTToStorage } from '../utils';
 
 const scope = ['github', 'facebook'];
 
@@ -18,9 +17,9 @@ class OAuthLogin extends Component {
     if (scope.indexOf(oAuth) > -1) {
       const jwt = readCookie('jwt');
       if (jwt) {
-        localStorage.setItem(JWT_TOKEN, jwt);
+        setJWTToStorage(jwt);
         if (checkTokenExpiry()) {
-          this.props.actions.loginSuccess(jwt);
+          this.props.actions.loginUserSuccess(jwt);
           this.context.router.replace('/home/');
         }
       } else {

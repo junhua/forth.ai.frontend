@@ -8,7 +8,6 @@ import {
 } from './constants';
 // import { loginFailure } from '../Account/actions';
 import { fetchJSON, checkHttpStatus, delay, ROOT_URL } from '../../utils';
-import { JWT_TOKEN } from '../Account/constants';
 
 export function fetchPostsRequest() {
   return { type: FETCH_POSTS_REQUEST };
@@ -17,7 +16,10 @@ export function fetchPostsRequest() {
 export function fetchPostsFailure(error) {
   return {
     type: FETCH_POSTS_FAILURE,
-    payload: { error },
+    payload: {
+      status: error.response.status,
+      statusText: error.response.statusText,
+    },
   };
 }
 
@@ -28,14 +30,14 @@ export function fetchPostsSuccess(posts) {
   };
 }
 
-export function fetchPosts() {
+export function fetchPosts(token) {
   return (dispatch) => {
     dispatch(fetchPostsRequest());
     const config = {
       method: 'GET',
       credentials: 'include',
       headers: {
-        Authorization: `JWT ${localStorage.getItem(JWT_TOKEN)}`,
+        Authorization: `JWT ${token}`,
       },
     };
 
@@ -58,7 +60,10 @@ export function updatePostRequest() {
 export function updatePostFailure(error) {
   return {
     type: UPDATE_POST_FAILURE,
-    payload: { error },
+    payload: {
+      status: error.response.status,
+      statusText: error.response.statusText,
+    },
   };
 }
 
@@ -71,7 +76,7 @@ export function updatePostSuccess(post) {
 
 export function updatePost(post) {
   return (dispatch) => {
-    dispatch(updatePostRequest);
+    dispatch(updatePostRequest());
 
     const config = {
       method: 'PUT',
@@ -97,7 +102,10 @@ export function createPostRequest() {
 export function createPostFailure(error) {
   return {
     type: CREATE_POST_FAILURE,
-    payload: { error },
+    payload: {
+      status: error.response.status,
+      statusText: error.response.statusText,
+    },
   };
 }
 

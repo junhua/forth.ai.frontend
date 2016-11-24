@@ -35,8 +35,16 @@ export const requireAuthentication = UserAuthWrapper({
   wrapperDisplayName: 'UserIsJWTAuthenticated',
 });
 
+export function getJWTFromStorage() {
+  return localStorage.getItem(JWT_TOKEN);
+}
+
+export function setJWTToStorage(jwt) {
+  return localStorage.setItem(JWT_TOKEN, jwt);
+}
+
 export function checkTokenExpiry() {
-  const jwt = localStorage.getItem(JWT_TOKEN);
+  const jwt = getJWTFromStorage();
   if (jwt) {
     const jwtExp = jwtDecode(jwt).exp;
     const expiryDate = new Date(0);
