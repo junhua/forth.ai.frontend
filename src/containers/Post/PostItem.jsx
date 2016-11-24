@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PostItemEdit from './PostItemEdit';
 import StackIcon from '../../components/StackIcon';
+import { stopPropagation } from '../../utils';
 
 class PostItem extends Component {
 
@@ -14,17 +15,28 @@ class PostItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { success } = nextProps;
-    this.setState({ editing: !success });
+    const { editId, post } = nextProps;
+    this.setState({ editing: editId === post.id });
   }
 
-  toggleEdit() {
-    this.setState({ editing: !this.state.editing });
+  toggleEdit(e) {
+    stopPropagation(e);
+    const { editing } = this.state;
+    const { post } = this.props;
+
+    // console.warn(editing, post.content);
+    if (editing) {
+      this.props.toggleEditId(null);
+    } else {
+      this.props.toggleEditId(post.id);
+    }
+
+    this.setState({ editing: !editing });
   }
 
   render() {
-    const { editing } = this.state;
-    const { post, handleUpdatePost, handleDeletePost } = this.props;
+    // const { editing } = this.state;
+    const { editId, post, handleUpdatePost, handleDeletePost } = this.props;
     return (
       <div className="mb-1_5em post-item">
         <div className="title">
@@ -58,7 +70,7 @@ class PostItem extends Component {
                 <i className="fa fa-comment fa-2x comment" aria-hidden="true" />
                 <span className="sr-only">anchor</span>
               </a>
-              { !editing ?
+              { editId !== post.id ?
                 <p>{post.content}</p>
                 :
                 <PostItemEdit
@@ -83,9 +95,14 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
+  editId: React.PropTypes.oneOfType([
+    React.PropTypes.number.isRequired,
+    React.PropTypes.object.isRequired,
+  ]),
   post: React.PropTypes.object.isRequired,
   handleUpdatePost: React.PropTypes.func.isRequired,
   handleDeletePost: React.PropTypes.func.isRequired,
+  toggleEditId: React.PropTypes.func.isRequired,
 };
 
 export default PostItem;

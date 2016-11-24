@@ -6,6 +6,7 @@ import PostItemNew from './PostItemNew';
 import PostItemBtn from './PostItemBtn';
 import * as actionCreators from './actions';
 import './Post.scss';
+import { stopPropagation } from '../../utils';
 
 class PostBoard extends Component {
 
@@ -13,11 +14,14 @@ class PostBoard extends Component {
     super(props);
     this.handleCreatePost = this.handleCreatePost.bind(this);
     this.toggleCreate = this.toggleCreate.bind(this);
+    this.toggleEditId = this.toggleEditId.bind(this);
+    this.restState = this.restState.bind(this);
     this.handleDeletePost = this.handleDeletePost.bind(this);
   }
 
   state = {
     creating: false,
+    editId: null,
   }
 
   componentWillMount() {
@@ -31,9 +35,43 @@ class PostBoard extends Component {
   //   return true;
   // }
 
+  componentDidMount() {
+    document.addEventListener('click', this.restState, false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { success } = nextProps;
+    if (success) {
+      this.restState();
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.restState, false);
+  }
+
+  setCreate(creating) {
+    this.setState({ creating });
+  }
+
+  setEditId(postId) {
+    this.setState({ editId: postId });
+  }
+
+  restState() {
+    this.setCreate(false);
+    this.setEditId(null);
+  }
+
   toggleCreate(e) {
-    e.stopPropagation();
-    this.setState({ creating: !this.state.creating });
+    stopPropagation(e);
+    this.setCreate(true);
+    this.setEditId(null);
+  }
+
+  toggleEditId(postId) {
+    this.setCreate(false);
+    this.setEditId(postId);
   }
 
   handleCreatePost(post) {
@@ -55,14 +93,15 @@ class PostBoard extends Component {
   }
 
   render() {
-    const { creating } = this.state;
+    const { creating, editId } = this.state;
     const { posts, isFetching } = this.props;
 
     const postList = posts.map(
       post => (
         <PostItem
           {...this.props}
-          post={post} key={post.id}
+          post={post} key={post.id} editId={editId}
+          toggleEditId={this.toggleEditId}
           handleUpdatePost={this.handleUpdatePost(post)}
           handleDeletePost={this.handleDeletePost(post.id)}
         />

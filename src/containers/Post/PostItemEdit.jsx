@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { stopPropagation } from '../../utils';
 
 function handleInput(e) {
   const el = e.target;
@@ -56,7 +57,7 @@ const vaildate = (values) => {
 function PostItemEdit(props) {
   const { handleSubmit, pristine, submitting } = props;
   return (
-    <div className="mb-1_5em post-item-edit">
+    <div className="mb-1_5em post-item-edit" onClick={stopPropagation}>
       <form className="post-form" onSubmit={handleSubmit}>
         {/* <input type="url"className="form-control mb-1_5em" placeholder="URL"
           pattern="^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?" /> */ }
@@ -97,4 +98,6 @@ PostItemEdit.propTypes = {
 export default reduxForm({
   form: 'postEditForm',
   vaildate,
+  destroyOnUnmount: false,
+  enableReinitialize: true,
 })(PostItemEdit);
