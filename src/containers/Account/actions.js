@@ -1,11 +1,10 @@
 import { push } from 'react-router-redux';
-import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
-import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER, JWT_TOKEN } from './constants';
-import { checkHttpStatus, parseJSON, delay, ROOT_URL } from '../../utils';
+import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER } from './constants';
+import { fetchJSON, delay, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
 
 export function loginUserSuccess(token) {
-  localStorage.setItem(JWT_TOKEN, token);
+  setJWTToStorage(token);
   return {
     type: LOGIN_USER_SUCCESS,
     payload: {
@@ -15,7 +14,7 @@ export function loginUserSuccess(token) {
 }
 
 export function loginUserFailure(error) {
-  localStorage.removeItem(JWT_TOKEN);
+  removeJWTFromStorage();
   return {
     type: LOGIN_USER_FAILURE,
     payload: {
@@ -32,7 +31,7 @@ export function loginUserRequest() {
 }
 
 export function logoutUser() {
-  localStorage.removeItem(JWT_TOKEN);
+  removeJWTFromStorage();
   return {
     type: LOGOUT_USER,
   };
@@ -48,34 +47,31 @@ export function logoutAndRedirect(redirect = '/login?redirect=/') {
 export function loginUser(email, password, redirect = '/') {
   return (dispatch) => {
     dispatch(loginUserRequest());
-    return fetch(`${ROOT_URL}/rest-auth/login/`, {
+
+    const config = {
       method: 'POST',
       credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({ email, password }),
-    })
-    .then(delay(2000))
-    .then(checkHttpStatus)
-    .then(parseJSON)
-    .then((response) => {
-      try {
-        jwtDecode(response.token);
-        dispatch(loginUserSuccess(response.token));
-        dispatch(push(redirect));
-      } catch (e) {
-        dispatch(loginUserFailure({
-          response: {
-            status: 403,
-            statusText: 'Invalid token',
-          },
-        }));
-      }
-    })
-    .catch((error) => {
-      dispatch(loginUserFailure(error));
-    });
+    };
+
+    return fetchJSON(`${ROOT_URL}/rest-auth/login/`, config)
+      .then(delay(2000))
+      .then((response) => {
+        try {
+          jwtDecode(response.token);
+          dispatch(loginUserSuccess(response.token));
+          dispatch(push(redirect));
+        } catch (e) {
+          dispatch(loginUserFailure({
+            response: {
+              status: 403,
+              statusText: 'Invalid token',
+            },
+          }));
+        }
+      })
+      .catch((error) => {
+        dispatch(loginUserFailure(error));
+      });
   };
 }

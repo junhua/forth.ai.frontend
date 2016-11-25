@@ -2,7 +2,9 @@ import fetch from 'isomorphic-fetch';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
-import { JWT_TOKEN } from '../containers/Account/constants';
+
+export const JWT_TOKEN = '_jwt_token';
+export const ROOT_URL = process.env.NODE_ENV === 'production' ? 'http://pqapi.uiplay.cn' : 'http://192.168.99.100:8000';
 
 export function createReducer(initialState, reducerMap) {
   return (state = initialState, action) => {
@@ -41,6 +43,10 @@ export function getJWTFromStorage() {
 
 export function setJWTToStorage(jwt) {
   return localStorage.setItem(JWT_TOKEN, jwt);
+}
+
+export function removeJWTFromStorage() {
+  return localStorage.removeItem(JWT_TOKEN);
 }
 
 export function checkTokenExpiry() {
@@ -116,7 +122,6 @@ export function eraseCookie(name) {
   createCookie(name, '', -1);
 }
 
-export const ROOT_URL = process.env.NODE_ENV === 'production' ? 'http://pqapi.uiplay.cn' : 'http://192.168.99.100:8000';
 
 export function stopPropagation(e) {
   e.stopPropagation();
