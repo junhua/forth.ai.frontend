@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logoutUser } from '../containers/Account/actions';
+import { logoutAndRedirect } from '../containers/Account/actions';
 import Header from '../containers/Header/Header';
 import '../shard.scss';
 
@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logoutUser()),
+  logout: () => dispatch(logoutAndRedirect()),
 });
 
 

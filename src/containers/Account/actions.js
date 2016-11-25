@@ -38,10 +38,10 @@ export function logoutUser() {
   };
 }
 
-export function logoutAndRedirect() {
+export function logoutAndRedirect(redirect = '/login?redirect=/') {
   return (dispatch) => {
     dispatch(logoutUser());
-    dispatch(push('/login'));
+    dispatch(push(redirect));
   };
 }
 
