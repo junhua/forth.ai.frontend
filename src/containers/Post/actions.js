@@ -36,13 +36,11 @@ export function fetchPosts(token) {
     const config = {
       method: 'GET',
       credentials: 'include',
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
+      headers: { Authorization: `JWT ${token}` },
     };
 
     return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
-      .then(delay(1000))
+      // .then(delay(1000))
       .then((response) => {
         dispatch(fetchPostsSuccess(response));
       })
@@ -74,7 +72,7 @@ export function updatePostSuccess(post) {
   };
 }
 
-export function updatePost(post) {
+export function updatePost(post, token) {
   return (dispatch) => {
     dispatch(updatePostRequest());
 
@@ -82,6 +80,7 @@ export function updatePost(post) {
       method: 'PUT',
       credentials: 'include',
       body: JSON.stringify(post),
+      headers: { Authorization: `JWT ${token}` },
     };
 
     return fetchJSON(`${ROOT_URL}/v1/posts/${post.id}/`, config)
@@ -116,14 +115,15 @@ export function createPostSuccess(post) {
   };
 }
 
-export function createPost(type = 2, themes = [], keywords = [], content) {
+export function createPost(post, token) {
   return (dispatch) => {
     dispatch(createPostRequest());
 
     const config = {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify({ type, themes, keywords, content }),
+      body: JSON.stringify(post),
+      headers: { Authorization: `JWT ${token}` },
     };
 
     return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
@@ -143,7 +143,10 @@ export function deletePostRequest() {
 export function deletePostFaliure(error) {
   return {
     type: DELETE_POST_FAILURE,
-    payload: { error },
+    payload: {
+      status: error.response.status,
+      statusText: error.response.statusText,
+    },
   };
 }
 
@@ -154,13 +157,14 @@ export function deletePostSuccess(id) {
   };
 }
 
-export function deletePost(id) {
+export function deletePost(id, token) {
   return (dispatch) => {
     dispatch(deletePostRequest());
 
     const config = {
       method: 'DELETE',
       credentials: 'include',
+      headers: { Authorization: `JWT ${token}` },
     };
 
     return fetch(`${ROOT_URL}/v1/posts/${id}/`, config)

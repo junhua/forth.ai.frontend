@@ -75,20 +75,26 @@ class PostBoard extends Component {
   }
 
   handleCreatePost(post) {
-    this.props.actions.createPost(2, [], [], post.content);
+    const mergePost = Object.assign({}, {
+      type: 2,
+      themes: [],
+      keywords: [],
+    }, post);
+
+    this.props.actions.createPost(mergePost, getJWTFromStorage());
   }
 
   handleUpdatePost(post) {
     return (newPost) => {
       const mergePost = Object.assign({}, post, newPost);
-      this.props.actions.updatePost(mergePost);
+      this.props.actions.updatePost(mergePost, getJWTFromStorage());
     };
   }
 
   handleDeletePost(id) {
     return (e) => {
       e.stopPropagation();
-      this.props.actions.deletePost(id);
+      this.props.actions.deletePost(id, getJWTFromStorage());
     };
   }
 
