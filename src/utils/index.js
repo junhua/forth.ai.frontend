@@ -95,6 +95,22 @@ export function fetchJSON(url, options) {
     .then(parseJSON);
 }
 
+export function fetchJSONWithTimeout(url, options, wait) {
+  options.headers = Object.assign({
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }, options.headers);
+
+  if (options.body && typeof options.body !== 'string') {
+    options.body = JSON.stringify(options.body);
+  }
+
+  return fetch(url, options)
+    .then(delay(wait))
+    .then(checkHttpStatus)
+    .then(parseJSON);
+}
+
 
 export function createCookie(name, value, days) {
   let expires = '';

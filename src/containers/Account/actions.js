@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER } from './constants';
-import { fetchJSON, delay, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
+import { fetchJSONWithTimeout, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
 
 export function loginUserSuccess(token) {
   setJWTToStorage(token);
@@ -54,8 +54,7 @@ export function loginUser(email, password, redirect = '/') {
       body: JSON.stringify({ email, password }),
     };
 
-    return fetchJSON(`${ROOT_URL}/rest-auth/login/`, config)
-      .then(delay(2000))
+    return fetchJSONWithTimeout(`${ROOT_URL}/rest-auth/login/`, config, 2000)
       .then((response) => {
         try {
           jwtDecode(response.token);
