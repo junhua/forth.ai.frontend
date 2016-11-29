@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  web:
+    image: ipland/forth.ai.fe:dev
+    container_name: forth.ai.fe_dev
+    volumes: 
+      - ${PWD}:/home/nodejs/app:rw
+      - /home/nodejs/app/node_modules
+    ports:
+      - 8080:8080
+      - 3000:3000
+    environment:
+      - NODE_ENV=dev
+      - API_ADDRESS=192.168.99.100:8000
+    command: npm start
+    

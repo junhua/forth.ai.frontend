@@ -1,4 +1,4 @@
-FROM nodesource/node:4
+FROM nodesource/jessie:6.3.1
 MAINTAINER ipland <ipland630@gmail.com>
 
 RUN rm /etc/apt/sources.list \
@@ -17,28 +17,31 @@ RUN apt-get -y update \
 # explicitly set user/group IDs
 RUN groupadd -r nodejs --gid=999 && useradd -m -r -g nodejs --uid=999 nodejs
 
-ENV NODE_ENV production
+ENV NODE_ENV dev
 
 RUN mkdir -p /home/nodejs/app
 WORKDIR /home/nodejs/app
 
 # cache package.json and node_modules to speed up builds
-COPY package.json .
-RUN npm install --production --registry=https://registry.npm.taobao.org \
-    && npm install local-web-server -g --registry=https://registry.npm.taobao.org \
-    && npm cache clean \
-    && npm cache clean -g
+COPY package.json package.json
+
+RUN npm config set registry https://registry.npm.taobao.org
+RUN npm install local-web-server node-gyp -g && npm cache clean -g
+RUN npm install && npm cache clean
 
 # Add your source files
 COPY . .
 
-RUN npm run build
+ARG API_ADDRESS
+ENV API_ADDRESS ${API_ADDRESS:-192.168.99.100:8000}
 
-RUN chown -R nodejs:nodejs /home/nodejs/app
+ENV PORT 3000
+
+RUN find /home/nodejs/app -iname 'node_modules' -prune -o -print0 | xargs -0 chown nodejs:nodejs
 
 # For main web interface
-EXPOSE 8080
+EXPOSE 8080 3000
 
 USER nodejs
 
-CMD ["ws", "-d", "dist", "-s", "index.html", "-p", "8080"]
+CMD npm start

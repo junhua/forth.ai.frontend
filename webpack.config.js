@@ -5,8 +5,8 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 var precss =  require('precss');
-var host = (process.env.HOST || 'localhost');
-var port = (+process.env.PORT + 1) || 3001;
+var host = (process.env.HOST || '0.0.0.0');
+var port = (+process.env.PORT) || 3000;
 
 module.exports = {
   devtool: "eval",
@@ -56,7 +56,12 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // <-- To generate hot update chuncks.
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify("development") }),
+    new webpack.DefinePlugin({ 
+      "process.env": {
+        "NODE_ENV": JSON.stringify(process.env.NODE_ENV || "dev"),
+        "API_ADDRESS": JSON.stringify(process.env.API_ADDRESS || '192.168.99.100:8000')
+      } 
+    }),
     new webpack.optimize.CommonsChunkPlugin("jQuery", "jQuery.js", Infinity),
     new webpack.ProvidePlugin({
       $: "jquery",
