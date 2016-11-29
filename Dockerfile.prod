@@ -17,8 +17,7 @@ RUN apt-get -y update \
 # explicitly set user/group IDs
 RUN groupadd -r nodejs --gid=999 && useradd -m -r -g nodejs --uid=999 nodejs
 
-ARG NODE_ENV=production
-ENV NODE_ENV ${NODE_ENV}
+ENV NODE_ENV production
 
 RUN mkdir -p /home/nodejs/app
 WORKDIR /home/nodejs/app
@@ -33,14 +32,15 @@ RUN npm install && npm cache clean
 ARG API_ADDRESS
 ENV API_ADDRESS ${API_ADDRESS}
 
+RUN echo API_ADDRESS
+
 # Add your source files
 COPY . .
-RUN npm run build
 RUN find /home/nodejs/app -iname 'node_modules' -prune -o -print0 | xargs -0 chown nodejs:nodejs
 
 # For main web interface
-EXPOSE 8080 3001
+EXPOSE 8080 3000
 
 USER nodejs
 
-CMD ["ws", "-d", "dist", "-s", "index.html", "-p", "8080"]
+CMD ['usr/local/npm', 'npm', 'run', 'start']

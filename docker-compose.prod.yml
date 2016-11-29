@@ -6,15 +6,11 @@ services:
       context: .
       dockerfile: Dockerfile.prod
       args:
-        - NODE_ENV=production
         - API_ADDRESS=pqapi.uiplay.cn
     volumes: 
       - ${PWD}:/home/nodejs/app
       - /home/nodejs/app/node_modules
     ports:
       - 8080:8080
-      - 3001:3001
-    environment:
-      - NODE_ENV=production
-      - API_ADDRESS=pqapi.uiplay.cn
+      - 3000:3000
     command: ws -d dist -s index.html -p 8080 
