@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../containers/Account/actions';
-import { validEmail } from '../utils';
+import { validEmail, ROOT_URL } from '../utils';
 
 class LoginView extends Component {
   constructor(props) {
@@ -99,11 +99,11 @@ class LoginView extends Component {
           <div>
             <p className="description text-center">or sign in with one of these services</p>
             <div className="bottons text-center">
-              <a className="btn btn-default btn-facebook btn-gap" href="http://pqapi.uiplay.cn/accounts/facebook/login/">
+              <a className="btn btn-default btn-facebook btn-gap" href={`${ROOT_URL}/accounts/facebook/login/`}>
                 <i className="fa fa-facebook-official fa-2x fa-icon facebook-official-color" aria-hidden="true" />
                 <span>FACEBOOK</span>
               </a>
-              <a className="btn btn-default btn-github btn-gap" href="http://pqapi.uiplay.cn/accounts/github/login/">
+              <a className="btn btn-default btn-github btn-gap" href={`${ROOT_URL}/accounts/github/login/`}>
                 <i className="fa fa-github fa-2x fa-icon github-color" aria-hidden="true" />
                 <span>GITHUB</span>
               </a>

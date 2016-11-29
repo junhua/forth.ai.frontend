@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logoutAndRedirect } from '../containers/Account/actions';
 import Header from '../containers/Header/Header';
 import '../shard.scss';
+import '../../assets/images/wiki_global.png';
 
 function App({ children, ...props }) {
   return (

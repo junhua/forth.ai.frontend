@@ -1,0 +1,46 @@
+FROM nodesource/jessie:6.3.1
+MAINTAINER ipland <ipland630@gmail.com>
+
+RUN rm /etc/apt/sources.list \
+  \
+  # APT Exchange Source
+  && echo "deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib" > /etc/apt/sources.list \
+  && echo "deb http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list \
+  && echo "deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib" >> /etc/apt/sources.list \
+  && echo "deb-src http://mirrors.aliyun.com/debian/ jessie-proposed-updates main non-free contrib" >> /etc/apt/sources.list
+
+RUN apt-get -y update \
+  \
+  # delete all the apt list files since they're big and get stale quickly
+  && rm -rf /var/lib/apt/lists/*
+
+# explicitly set user/group IDs
+RUN groupadd -r nodejs --gid=999 && useradd -m -r -g nodejs --uid=999 nodejs
+
+ARG NODE_ENV=production
+ENV NODE_ENV ${NODE_ENV}
+
+RUN mkdir -p /home/nodejs/app
+WORKDIR /home/nodejs/app
+
+# cache package.json and node_modules to speed up builds
+COPY package.json package.json
+
+RUN npm config set progress fasle && npm config set registry https://registry.npm.taobao.org
+RUN npm install local-web-server -g && npm cache clean -g
+RUN npm install && npm cache clean
+
+ARG API_ADDRESS
+ENV API_ADDRESS ${API_ADDRESS}
+
+# Add your source files
+COPY . .
+RUN npm run build
+RUN find /home/nodejs/app -iname 'node_modules' -prune -o -print0 | xargs -0 chown nodejs:nodejs
+
+# For main web interface
+EXPOSE 8080 3001
+
+USER nodejs
+
+CMD ["ws", "-d", "dist", "-s", "index.html", "-p", "8080"]

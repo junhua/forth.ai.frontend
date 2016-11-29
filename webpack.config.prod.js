@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CompressionPlugin = require('compression-webpack-plugin');
+// var CompressionPlugin = require('compression-webpack-plugin');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var precss =  require('precss');
@@ -26,8 +26,8 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
             // 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]',
-            'url-loader?limit=5120&name=assets/images/[name].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+            'url-loader?limit=100&name=assets/images/[name].[ext]',
+            // 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
       // Font Definitions
@@ -44,7 +44,12 @@ module.exports = {
     
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('assets/[name].[contenthash:5].css', { disable: false, allChunks: true }), //Extract to styles.css file
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        "NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production"),
+        "API_ADDRESS": JSON.stringify(process.env.API_ADDRESS)
+      }
+    }),
 
     new HtmlWebpackPlugin({
       template: 'index.template.prod.html',
@@ -75,13 +80,13 @@ module.exports = {
     }),
 
     // Open GZip
-    new CompressionPlugin({
-      asset: '[file].gz[query]',
-      algorithm: 'gzip',
-      regExp: /\.js$|\.html$|\.css$/,
-      threshold: 1024,
-      minRatio: 0.9
-    })
+    // new CompressionPlugin({
+    //   asset: '[file].gz[query]',
+    //   algorithm: 'gzip',
+    //   regExp: /\.js$|\.html$|\.css$/,
+    //   threshold: 1024,
+    //   minRatio: 0.9
+    // })
   ],
   resolve: {
     alias: {

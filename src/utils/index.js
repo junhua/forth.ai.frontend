@@ -4,7 +4,8 @@ import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
 
 export const JWT_TOKEN = '_jwt_token';
-export const ROOT_URL = process.env.NODE_ENV === 'production' ? 'http://pqapi.uiplay.cn' : 'http://192.168.99.100:8000';
+// export const ROOT_URL = process.env.NODE_ENV === 'production' ? 'http://pqapi.uiplay.cn' : 'http://192.168.99.100:8000';
+export const ROOT_URL = `http://${process.env.API_ADDRESS}`;
 
 export function createReducer(initialState, reducerMap) {
   return (state = initialState, action) => {
@@ -122,9 +123,7 @@ export function eraseCookie(name) {
   createCookie(name, '', -1);
 }
 
-
 export function stopPropagation(e) {
   e.stopPropagation();
   e.nativeEvent.stopImmediatePropagation();
 }
-
