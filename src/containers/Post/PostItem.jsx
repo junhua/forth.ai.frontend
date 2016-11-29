@@ -62,11 +62,11 @@ class PostItem extends Component {
           <div className="media">
             <div className="media-body">
               {/* <h4 className="media-heading">Media heading</h4> */ }
-              <a href="#anchor">
+              <a href="javascript:void(0)">
                 <i className="fa fa-arrows fa-2x arrows" aria-hidden="true" />
                 <span className="sr-only">anchor</span>
               </a>
-              <a href="#anchor">
+              <a href="javascript:void(0)">
                 <i className="fa fa-comment fa-2x comment" aria-hidden="true" />
                 <span className="sr-only">anchor</span>
               </a>
@@ -82,9 +82,9 @@ class PostItem extends Component {
             <div className="media-left text-right">
               <img className="media-obejct" src="/assets/images/wiki_global.png" alt="..." />
               <div className="text-right toolkit">
-                <a className="" href="#done"><i className="fa fa-check-circle-o fa-2x done" aria-hidden="true" /><span className="sr-only">done</span></a>
-                <a className="" href="#remove" onClick={handleDeletePost}><i className="fa fa-times-circle-o fa-2x remove" aria-hidden="true" /><span className="sr-only">remove</span></a>
-                <a className="" href="#draft" onClick={this.toggleEdit}><i className="fa fa-edit fa-2x draft" aria-hidden="true" /><span className="sr-only">edit</span></a>
+                <a className="" href="javascript:void(0)"><i className="fa fa-check-circle-o fa-2x done" aria-hidden="true" /><span className="sr-only">done</span></a>
+                <a className="" href="javascript:void(0)" onClick={handleDeletePost}><i className="fa fa-times-circle-o fa-2x remove" aria-hidden="true" /><span className="sr-only">remove</span></a>
+                <a className="" href="javascript:void(0)" onClick={this.toggleEdit}><i className="fa fa-edit fa-2x draft" aria-hidden="true" /><span className="sr-only">edit</span></a>
               </div>
             </div>
           </div>

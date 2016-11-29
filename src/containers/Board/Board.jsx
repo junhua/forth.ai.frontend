@@ -30,16 +30,16 @@ function Board() {
     <div className="container-fuild board-container">
       <ul className="nav nav-tabs nav-justified">
         <li role="presentation" className="nav-tab active">
-          <a href="#queue" onClick={toggleTab(0)}>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
+          <a href="javascript:void(0)" onClick={toggleTab(0)}>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
         </li>
         <li role="presentation" className="nav-tab">
-          <a href="#analytics" onClick={toggleTab(1)}>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
+          <a href="javascript:void(0)" onClick={toggleTab(1)}>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
         </li>
         <li role="presentation" className="nav-tab">
-          <a href="#plan" onClick={toggleTab(2)}>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
+          <a href="javascript:void(0)" onClick={toggleTab(2)}>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
         </li>
         <li role="presentation" className="nav-tab">
-          <a href="#settings" onClick={toggleTab(3)}>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
+          <a href="javascript:void(0)" onClick={toggleTab(3)}>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
         </li>
       </ul>
 
@@ -48,13 +48,13 @@ function Board() {
           <PostBoard />
         </li>
         <li className="nav-item analytics">
-          PostBoard
+          analytics
         </li>
         <li className="nav-item plan">
-          PostBoard
+          plan
         </li>
         <li className="nav-item settings">
-          PostBoard
+          settings
         </li>
       </ul>
 
