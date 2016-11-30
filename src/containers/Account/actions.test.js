@@ -4,15 +4,13 @@ import expect from 'expect';
 import nock from 'nock';
 import * as TYPES from './constants';
 import * as ACTIONS from './actions';
-import { JWT_TOKEN } from '../../utils';
+import { JWT_TOKEN, ROOT_URL } from '../../utils';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 
 describe('Account actions', () => {
-  const MOCK_URL = 'http://192.168.99.100:8000';
-
   const response400 = {
     status: 400,
     statusText: 'Bad Request',
@@ -93,7 +91,7 @@ describe('Account actions', () => {
         },
       ];
 
-      nock(MOCK_URL)
+      nock(ROOT_URL)
         .post('/rest-auth/login/', {
           email: 'join@us.com',
           password: 'password',
@@ -121,7 +119,7 @@ describe('Account actions', () => {
         },
       ];
 
-      nock(MOCK_URL)
+      nock(ROOT_URL)
         .post('/rest-auth/login/')
         .reply((uri, body) => {
           let response = null;

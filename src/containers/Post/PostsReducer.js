@@ -29,7 +29,7 @@ export default createReducer(initialState, {
   [FETCH_POSTS_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      error: payload.error,
+      error: payload,
     })
   ),
 
@@ -41,7 +41,7 @@ export default createReducer(initialState, {
   [UPDATE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      error: payload.error,
+      error: payload,
     })
   ),
   [UPDATE_POST_SUCCESS]: (state, payload) => (
@@ -61,7 +61,7 @@ export default createReducer(initialState, {
   [CREATE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      error: payload.error,
+      error: payload,
     })
   ),
   [CREATE_POST_SUCCESS]: (state, payload) => (
@@ -80,7 +80,7 @@ export default createReducer(initialState, {
   [DELETE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      error: payload.error,
+      error: payload,
     })
   ),
   [DELETE_POST_SUCCESS]: (state, payload) => (
