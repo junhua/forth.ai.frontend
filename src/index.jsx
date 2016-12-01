@@ -9,6 +9,8 @@ import configureStore from './store/configureStore';
 import { loginUserSuccess } from './containers/Account/actions';
 import { checkTokenExpiry, getJWTFromStorage } from './utils';
 
+require('es6-promise').polyfill();
+
 const target = document.getElementById('root');
 const { store, history } = configureStore(browserHistory, /*window.__INITIAL_STATE__*/);
 
