@@ -1,5 +1,8 @@
 import React from 'react';
-import { Route, IndexRoute, Redirect } from 'react-router';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import Redirect from 'react-router/lib/Redirect';
+
 
 import App from './App';
 import { Login, NotFound, Home, OAuthLogin } from '../views';
