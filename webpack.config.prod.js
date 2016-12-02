@@ -26,7 +26,7 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
             // 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]',
-            'url-loader?limit=100&name=assets/images/[name].[ext]',
+            'url-loader?limit=100&name=images/[name].[ext]',
             // 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
@@ -40,10 +40,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], { verbose: true, dry: false, exclude: "" }),
+    new CleanWebpackPlugin(['dist'], { verbose: true, dry: false, exclude: ["images"] }),
     
     // css files from the extract-text-plugin loader
-    new ExtractTextPlugin('assets/[name].[contenthash:5].css', { disable: false, allChunks: true }), //Extract to styles.css file
+    new ExtractTextPlugin('css/[name].[contenthash:5].css', { disable: false, allChunks: true }), //Extract to styles.css file
     new webpack.DefinePlugin({
       "process.env": {
         "NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production"),
