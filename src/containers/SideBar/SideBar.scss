@@ -1,10 +1,19 @@
 :global .container-sidebar {
   
   margin-top: 100px;
-  padding-left: 20px;
+  padding:0px 20px;
 
-  $category-bgcolor: #DBE5ED;
-  $category-color: #698198;
+  // $category-bgcolor: #DBE5ED;
+  $category-bgcolor: rgba(0, 0, 0, 0.3);
+  // $category-color: #698198;
+  $category-color: rgba(255, 255, 255, 0.6);
+
+  hr {
+    height: 1px;
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,.2);
+  }
   
   .category-group {
 
@@ -14,15 +23,16 @@
       margin-right: .4em;
       margin-bottom: .3em;
       color: $category-color;
-      border: 1px solid $category-color;
+      // border: 1px solid $category-color;
       border-radius: 8px;
       text-decoration: none;
       background: $category-bgcolor;
     }
 
     a:hover{
-      opacity: .5;
+      // opacity: .5;
       text-decoration: none;
+      color: #fff;
     }
 
   }

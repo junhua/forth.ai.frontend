@@ -85,7 +85,7 @@ class SideBar extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-10">
+            <div className="col-xs-10 col-sm-10">
               <input
                 type="text"
                 className="form-control"
@@ -95,12 +95,12 @@ class SideBar extends Component {
                 autoComplete="off"
               />
             </div>
-            <div className="col-sm-2 col-sm-pull-1">
+            <div className="col-xs-2 col-xs-pull-1 col-sm-2 col-sm-pull-1">
               <i className="fa fa-check-circle-o fa-2x mt-2 pristine" aria-hidden="true" />
             </div>
           </div>
         </form>
-
+        <hr />
 
         <form className="keywords-form mb-20" onSubmit={this.addKeyword}>
           <div className="keywords">
@@ -109,7 +109,7 @@ class SideBar extends Component {
               {keywordList}
             </div>
             <div className="row">
-              <div className="col-sm-10">
+              <div className="col-xs-10 col-sm-10">
                 <input
                   type="text"
                   className="form-control"
@@ -119,12 +119,13 @@ class SideBar extends Component {
                   autoComplete="off"
                 />
               </div>
-              <div className="col-sm-2 col-sm-pull-1">
+              <div className="col-xs-2 col-xs-pull-1 col-sm-2 col-sm-pull-1">
                 <i className="fa fa-check-circle-o fa-2x mt-2 pristine" aria-hidden="true" />
               </div>
             </div>
           </div>
         </form>
+        <hr />
 
         <form className="form-inline frequency-form mb-20">
           <div className="frequency">
