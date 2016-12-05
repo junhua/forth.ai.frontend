@@ -7,6 +7,7 @@ import PostItemBtn from './PostItemBtn';
 import * as actionCreators from './actions';
 import './Post.scss';
 import { stopPropagation, getJWTFromStorage } from '../../utils';
+import { addNotification } from '../Toast/actions';
 
 class PostBoard extends Component {
 
@@ -94,7 +95,8 @@ class PostBoard extends Component {
   handleDeletePost(id) {
     return (e) => {
       e.stopPropagation();
-      this.props.actions.deletePost(id, getJWTFromStorage());
+      // this.props.actions.deletePost(id, getJWTFromStorage());
+      this.props.removePostWithUndo(id);
     };
   }
 
@@ -140,6 +142,7 @@ PostBoard.propTypes = {
   // success: React.PropTypes.bool.isRequired,
   // failure: React.PropTypes.bool.isRequired,
   actions: React.PropTypes.object.isRequired,
+  removePostWithUndo: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -152,6 +155,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
+  removePostWithUndo: (id) => {
+    dispatch(addNotification('Remove Post?', 'warning', 'undo', 'deletePost', [id]));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostBoard);

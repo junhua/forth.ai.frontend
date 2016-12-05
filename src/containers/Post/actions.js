@@ -8,6 +8,7 @@ import {
 } from './constants';
 // import { loginFailure } from '../Account/actions';
 import { fetchJSON, checkHttpStatus, delay, ROOT_URL } from '../../utils';
+import { addNotification } from '../Toast/actions';
 
 export function fetchPostsRequest() {
   return { type: FETCH_POSTS_REQUEST };
@@ -86,6 +87,7 @@ export function updatePost(post, token) {
     return fetchJSON(`${ROOT_URL}/v1/posts/${post.id}/`, config)
       .then((response) => {
         dispatch(updatePostSuccess(response));
+        dispatch(addNotification('Update Post successfully.', 'info', 'close'));
       })
       .catch((error) => {
         dispatch(updatePostFailure(error));
@@ -129,6 +131,7 @@ export function createPost(post, token) {
     return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
       .then((response) => {
         dispatch(createPostSuccess(response));
+        dispatch(addNotification('Create Post successfully.', 'info', 'close'));
       })
       .catch((error) => {
         dispatch(createPostFailure(error));
@@ -172,6 +175,7 @@ export function deletePost(id, token) {
       .then(checkHttpStatus)
       .then(() => {
         dispatch(deletePostSuccess(id));
+        dispatch(addNotification('Remove Post successfully.', 'info', 'close'));
       })
       .catch((error) => {
         dispatch(deletePostFaliure(error));

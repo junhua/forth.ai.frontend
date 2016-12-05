@@ -2,6 +2,7 @@ import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
 import { LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER } from './constants';
 import { fetchJSONWithTimeout, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
+import { addNotification } from '../Toast/actions';
 
 export function loginUserSuccess(token) {
   setJWTToStorage(token);
@@ -59,6 +60,7 @@ export function loginUser(email, password, redirect = '/') {
         try {
           jwtDecode(response.token);
           dispatch(loginUserSuccess(response.token));
+          dispatch(addNotification('Welcome to Forth.ai.', 'succ', ''));
           dispatch(push(redirect));
         } catch (e) {
           dispatch(loginUserFailure({
@@ -71,6 +73,7 @@ export function loginUser(email, password, redirect = '/') {
       })
       .catch((error) => {
         dispatch(loginUserFailure(error));
+        dispatch(addNotification('Email Address or Password is not vaild.', 'error', 'close'));
       });
   };
 }
