@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../containers/Account/actions';
 import { readCookie, checkTokenExpiry, setJWTToStorage } from '../utils';
 
-const scope = ['github', 'facebook'];
+const scope = ['github', 'facebook', 'google'];
 
 class OAuthLogin extends Component {
   static contextTypes = {

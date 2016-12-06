@@ -89,6 +89,7 @@
   $color-facebook: #fff;
   $color-facebook-official: #3c5b9a;
   $github-color: #333333;
+  $google-color: #4285f4;
   .fa.pristine { color: $color-pristine; }
   .fa.correct, .fa.done{ color: $color-corrent; }
   .fa.error, .fa.remove { color: $color-error; }
@@ -97,6 +98,8 @@
   .fa.facebook-color { color: $color-facebook; }
   .fa.facebook-official-color { color: $color-facebook-official;  }
   .fa.github-color { color: $github-color; }
+  .fa.google-color { color: $google-color; }
+
   /* Rules for font size */
   .fz0 { font-size: 0; }
   .fz12 { font-size: 12px; }
@@ -182,7 +185,7 @@
       .bottons {
         margin-top: 20px;  
       
-        .btn-gap { 
+        %btn-gap { 
           padding: 4px 20px;
 
           margin-left: 15px;
@@ -192,6 +195,7 @@
           background-color: inherit;
           color: #757c81;
           vertical-align: middle;
+          margin-bottom: 1.2rem;
           
           span { 
             display: inline-block;
@@ -199,6 +203,18 @@
             vertical-align: top;
             padding-left: .4em; }
           &:hover span { color: $login-body;}
+        }
+
+        .btn-facebook {
+          @extend %btn-gap;
+        }
+
+        .btn-github {
+          @extend %btn-gap;
+        }
+
+        .btn-google {
+          @extend %btn-gap;
         }
 
 
