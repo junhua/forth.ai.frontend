@@ -32,10 +32,9 @@ RUN npm install && npm cache clean
 ARG API_ADDRESS
 ENV API_ADDRESS ${API_ADDRESS}
 
-RUN echo API_ADDRESS
-
 # Add your source files
 COPY . .
+RUN npm run build
 RUN find /home/nodejs/app -iname 'node_modules' -prune -o -print0 | xargs -0 chown nodejs:nodejs
 
 # For main web interface
