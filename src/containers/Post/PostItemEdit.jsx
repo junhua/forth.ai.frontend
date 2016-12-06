@@ -72,13 +72,13 @@ function PostItemEdit(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-sm-8 col-md-8">
             <div className="form-group">
               <label htmlFor="uploadPhoto" className="btn btn-default fw-bolder btn-file">UPLOAD PHOTO</label>
               <input type="file" id="uploadPhoto" className="sr-only" />
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-sm-4 col-md-4">
             <button type="submit" className="btn btn-default pull-right btn-post fw-bolder" disabled={pristine || submitting}>POST</button>
           </div>
         </div>
