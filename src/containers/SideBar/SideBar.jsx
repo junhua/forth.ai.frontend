@@ -132,7 +132,7 @@ class SideBar extends Component {
             <h4>Frequency/Week</h4>
             <div className="row">
               <div className="col-xs-8 col-sm-8 col-md-8">
-                <input type="number" className="form-control" id="theme" placeholder="1" min="1" />
+                <input type="number" autoComplete="off" className="form-control" id="theme" placeholder="1" min="1" />
               </div>
             </div>
           </div>
