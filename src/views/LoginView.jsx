@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../containers/Account/actions';
-import { validEmail, ROOT_URL } from '../utils';
+import { validateEmail, ROOT_URL } from '../utils';
 
 class LoginView extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class LoginView extends Component {
     e.preventDefault();
     const emailStr = this.email.value.toLowerCase().trim();
     const password = this.state.password;
-    if (!validEmail(emailStr)) {
+    if (!validateEmail(emailStr)) {
       this.email.focus();
     } else if (password.length < 6) {
       this.setState({ password: '' });
@@ -43,8 +43,12 @@ class LoginView extends Component {
     const { submitting } = this.props;
     return (
       <div className="form-wrapper">
+        <ul className="nav nav-tabs m-nav-justified">
+          <li role="presentation" className="m-cornor-l active"><a href="javascript:void(0);">SIGN IN</a></li>
+          <li role="presentation" className="m-cornor-r"><a href="/signup">SIGN UP</a></li>
+        </ul>
         <div className="form-pane">
-          <form className="form-account" onSubmit={this.login}>
+          <form className="account-form" onSubmit={this.login}>
             <fieldset disabled={submitting}>
               <div className="form-group">
                 <label htmlFor="email">Account Email</label>
@@ -82,7 +86,7 @@ class LoginView extends Component {
                 <button
                   type="submit"
                   className="btn btn-default center-block btn-login"
-                >LOGIN</button>
+                >SIGN IN</button>
                 :
                 <button
                   type="submit"
