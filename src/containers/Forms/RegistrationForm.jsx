@@ -6,7 +6,7 @@ import { validateEmail } from '../../utils';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const asyncValidate = (values, dispatch) => (
-  sleep(2000)
+  sleep(400)
   .then(() => {
     const errors = {};
 
@@ -34,18 +34,24 @@ const validate = (values) => {
     errors.email = 'Required';
   } else if (!validateEmail(values.email)) {
     errors.email = 'Invalid email address';
+  } else {
+    values.email = values.email.toLowerCase();
   }
 
   if (!values.password1) {
     errors.password1 = 'Required';
+  } else if (values.password1.length < 8) {
+    errors.password1 = 'Must be 8 characters or more';
   }
 
-  if (!values.password2) {
-    errors.password2 = 'Required';
-  }
-
-  if (values.password1 !== values.password2) {
-    errors.password2 = 'Password does not match.';
+  if (errors.password1) {
+    errors.password2 = 'non pass';
+  } else {
+    if (!values.password2) {
+      errors.password2 = 'Required';
+    } else if (values.password1 !== values.password2) {
+      errors.password2 = 'Password does not match';
+    }
   }
 
   return errors;
@@ -77,6 +83,10 @@ function renderField({ input, type, name, label, placeholder, meta: { asyncValid
 
   if (touched && error) {
     displayIcon = exclamationIcon;
+
+    if ((input.name === 'password2' && error === 'non pass')) {
+      displayIcon = null;
+    }
   }
 
   if (touched && !error) {
@@ -106,7 +116,7 @@ renderField.propTypes = {
 };
 
 function RegistrationForm(props) {
-  const { handleSubmit, pristine, submitting, invalid } = props;
+  const { handleSubmit, pristine, isSubmitting, invalid } = props;
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
@@ -114,7 +124,14 @@ function RegistrationForm(props) {
       <Field name="email" type="email" component={renderField} label="Email (required, but never shown)" placeholder="you@example.org" />
       <Field name="password1" type="password" component={renderField} label="Password" placeholder="********" />
       <Field name="password2" type="password" component={renderField} label="Confirm password" placeholder="********" />
-      <button type="submit" className="btn btn-default center-block btn-signup" disabled={pristine || invalid || submitting}>Sign up</button>
+      { isSubmitting ?
+        <button type="submit" className="btn btn-default center-block btn-signup" disabled>
+          <i className="fa fa-spinner fa-spin fa-lg fa-fw" />
+          <span className="sr-only">Loading...</span>
+        </button>
+        :
+        <button type="submit" className="btn btn-default center-block btn-signup" disabled={pristine || invalid}>SIGN UP</button>
+      }
     </form>
   );
 }
@@ -122,7 +139,7 @@ function RegistrationForm(props) {
 RegistrationForm.propTypes = {
   handleSubmit: React.PropTypes.func.isRequired,
   pristine: React.PropTypes.bool.isRequired,
-  submitting: React.PropTypes.bool.isRequired,
+  isSubmitting: React.PropTypes.bool.isRequired,
   invalid: React.PropTypes.bool.isRequired,
 };
 

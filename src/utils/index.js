@@ -79,7 +79,9 @@ export function toArray(els) {
   return Array.prototype.slice.call(els);
 }
 
-export function fetchJSON(url, options) {
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+export function fetchJSON(url, options, ms) {
   options.headers = Object.assign({
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -89,27 +91,17 @@ export function fetchJSON(url, options) {
     options.body = JSON.stringify(options.body);
   }
 
-  return fetch(url, options)
-    .then(checkHttpStatus)
-    .then(parseJSON);
-}
-
-export function fetchJSONWithTimeout(url, options, wait) {
-  options.headers = Object.assign({
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  }, options.headers);
-
-  if (options.body && typeof options.body !== 'string') {
-    options.body = JSON.stringify(options.body);
+  let promise = null;
+  if (ms) {
+    promise = sleep(ms).then(() => fetch(url, options));
+  } else {
+    promise = fetch(url, options);
   }
 
-  return fetch(url, options)
-    .then(delay(wait))
+  return promise
     .then(checkHttpStatus)
     .then(parseJSON);
 }
-
 
 export function createCookie(name, value, days) {
   let expires = '';

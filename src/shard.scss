@@ -82,6 +82,10 @@
   .pt-50 { padding-top: 50px; }
 
   /* Rules for usual font icon color */
+  .fa-spin { 
+    transform: translateZ(0) scale(1);
+    -webkit-backface-visibility: hidden;
+  }
   $color-corrent: #0F7001;
   $color-error: #FB0007;
   $color-progress: #13284B;
@@ -227,10 +231,11 @@
       border-top: none;
       
       .btn-login, .btn-signup {
-        // width: 108px;
+        width: 175px;
         // padding-left: $loginBtn-padding;
         // padding-right: $loginBtn-padding;
-        padding: 10px 60px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         border: 2px solid $form-color;
         color: $form-color;
         text-transform: uppercase;

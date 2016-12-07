@@ -176,6 +176,7 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "no-useless-escape": 0,
     "max-len": 0,
+    "no-lonely-if": 0,
   },
   "plugins": [
     "react"

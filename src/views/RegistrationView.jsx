@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { registerUser } from '../containers/Account/actions';
 import RegistrationForm from '../containers/Forms/RegistrationForm';
 import { ROOT_URL } from '../utils';
 
-function RegistrationView() {
+function RegistrationView(props) {
+  const { isSubmitting } = props;
+
   return (
     <div className="form-wrapper">
       <ul className="nav nav-tabs m-nav-justified">
@@ -10,7 +14,7 @@ function RegistrationView() {
         <li role="presentation" className="m-cornor-r active"><a href="javascript:void(0);">SIGN UP</a></li>
       </ul>
       <div className="form-pane">
-        <RegistrationForm onSubmit={() => {}} />
+        <RegistrationForm onSubmit={props.registerUser} isSubmitting={isSubmitting} />
         <hr />
         <div>
           <p className="description text-center">or sign in with one of these services</p>
@@ -35,4 +39,19 @@ function RegistrationView() {
   );
 }
 
-export default RegistrationView;
+RegistrationView.propTypes = {
+  isSubmitting: React.PropTypes.bool.isRequired,
+  registerUser: React.PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isSubmitting: state.auth.isAuthenticating,
+});
+
+const mapDispatchToProps = dispatch => ({
+  registerUser: (fields) => {
+    dispatch(registerUser(fields));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegistrationView);
