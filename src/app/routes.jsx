@@ -5,12 +5,13 @@ import Redirect from 'react-router/lib/Redirect';
 
 
 import App from './App';
-import { Login, NotFound, Home, OAuthLogin } from '../views';
+import { Login, NotFound, Home, OAuthLogin, RegistrationView } from '../views';
 import { requireAuthentication } from '../utils';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={requireAuthentication(Home)} />
+    <Route path="signup" component={RegistrationView} />
     <Route path="login" component={Login} />
     <Route path="home" component={Home} />
     <Route path=":OAuth/login" component={OAuthLogin} />
