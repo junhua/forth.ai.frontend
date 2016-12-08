@@ -2,10 +2,10 @@ import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
 import {
   LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER,
-  REGISTER_USER_REQUEST, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS, EMAIL_EXIST,
+  REGISTER_USER_REQUEST, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS, /* EMAIL_EXIST,  USERNAME_EXIST,*/
 } from './constants';
-import { fetchJSON, parseJSON, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
-import { addNotification } from '../Toast/actions';
+import { fetchJSON, setJWTToStorage, removeJWTFromStorage, ROOT_URL } from '../../utils';
+import { addNotification, clearNotification } from '../Toast/actions';
 
 export function loginUserSuccess(token) {
   setJWTToStorage(token);
@@ -103,6 +103,7 @@ export function registerUser(fields) {
     return fetchJSON(`${ROOT_URL}/rest-auth/registration/`, config)
       .then(() => {
         dispatch(reigsterUserSuccess());
+        dispatch(clearNotification());
         dispatch(addNotification('You have successfully registered! You\'ll need to confirm your email-address before logging in', 'succ', 'close'));
         dispatch(push('/login'));
       })
@@ -110,23 +111,39 @@ export function registerUser(fields) {
         dispatch(reigsterUserFailure(error));
 
         if (error.response.status !== 400) {
-          dispatch(addNotification('The server is currently undergoing maintainence. Try again later!', 'error', 'close'));
+          return Promise.reject(error);
         }
 
-        return error.response;
+        return error.response.json();
       })
-      .then(parseJSON)
       .then((badResponse) => {
-        if (badResponse.username) {
-          dispatch(addNotification('The username already exists!', 'error', 'close'));
+        if (badResponse && Array.isArray(badResponse.email)
+          && badResponse.email.includes('A user is already registered with this e-mail address.')) {
+          dispatch(addNotification('The email Address already exists!', 'error', 'close'));
         }
-
-        if (badResponse.email) {
-          dispatch(addNotification('The email address already exists!', 'error', 'close'));
-        }
+      })
+      .catch(() => {
+        dispatch(addNotification('The server is currently undergoing maintainence. Try again later!', 'error', 'close'));
       });
   };
 }
 
-export function emailExist() { return { type: EMAIL_EXIST }; }
+export function emailExist(email) {
+  return (dispatch) => {
+    const config = {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({ email }),
+    };
 
+    return fetchJSON(`${ROOT_URL}/rest-auth/registration/`, config)
+      .catch((error) => {
+        if (error.response.status !== 400) {
+          dispatch(addNotification('The server is currently undergoing maintainence. Try again later!', 'error', 'close'));
+          return Promise.reject(error);
+        }
+
+        return error.response.json();
+      });
+  };
+}

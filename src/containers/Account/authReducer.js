@@ -11,6 +11,7 @@ const initialState = {
   isAuthenticated: false,
   isAuthenticating: false,
   statusText: null,
+  control: null,
 };
 
 export default createReducer(initialState, {

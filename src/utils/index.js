@@ -21,9 +21,12 @@ export function checkHttpStatus(response) {
     return response;
   }
 
-  const error = new Error(response.statusText);
+  const error = {};
   error.response = response;
-  throw error;
+  return Promise.reject(error);
+  // const error = new Error(response.statusText);
+  // error.response = response;
+  // throw error;
 }
 
 export function parseJSON(response) {
@@ -133,4 +136,8 @@ export function eraseCookie(name) {
 export function stopPropagation(e) {
   e.stopPropagation();
   e.nativeEvent.stopImmediatePropagation();
+}
+
+if (!Array.isArray) {
+  Array.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
 }

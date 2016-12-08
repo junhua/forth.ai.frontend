@@ -1,23 +1,21 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { emailExist } from '../Account/actions';
 import { addNotification } from '../Toast/actions';
 import { validateEmail } from '../../utils';
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 const asyncValidate = (values, dispatch) => (
-  sleep(400)
-  .then(() => {
-    const errors = {};
-
-    if (['john@qq.com', 'paul@qq.com', 'george@gmail.com', 'ringo@gmail.com'].includes(values.email)) {
-      errors.email = 'Email Address is taken';
-    }
-
-    if (!!errors.email) {
-      dispatch(addNotification(errors.email, 'error', 'close'));
-      throw errors;
-    }
+  new Promise((resolve, reject) => {
+    dispatch(emailExist(values.email))
+      .then((response) => {
+        if (response && response.email && Array.isArray(response.email)
+          && response.email.includes('A user is already registered with this e-mail address.')) {
+          dispatch(addNotification('The email Address already exists!', 'error', 'close'));
+          reject({ email: 'The email Address already exists!' });
+        } else {
+          resolve();
+        }
+      });
   })
 );
 
@@ -120,7 +118,7 @@ function RegistrationForm(props) {
 
   return (
     <form className="registration-form" onSubmit={handleSubmit}>
-      <Field name="username" type="text" component={renderField} label="Username" placeholder="name" />
+      {/* <Field name="username" type="text" component={renderField} label="Username" placeholder="name" />*/}
       <Field name="email" type="email" component={renderField} label="Email (required, but never shown)" placeholder="you@example.org" />
       <Field name="password1" type="password" component={renderField} label="Password" placeholder="********" />
       <Field name="password2" type="password" component={renderField} label="Confirm password" placeholder="********" />
