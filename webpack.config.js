@@ -43,14 +43,14 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-           // 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]',
-          'url-loader?limit=5120&name=assets/images/[name].[ext]',
+           // 'file?hash=sha512&digest=hex&name=images/[hash].[ext]',
+          'url-loader?limit=120&name=images/[name].[ext]',
           // 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
       // Font Definitions
-      { test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff&name=assets/fonts/[name].[ext]" },
-      { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=assets/fonts/[name].[ext]" },
+      { test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
+      { test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/, loader: "file?name=fonts/[name].[ext]" },
     ]
   },
   plugins: [

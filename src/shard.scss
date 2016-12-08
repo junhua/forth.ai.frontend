@@ -9,7 +9,7 @@
 
   $udaciry-error: #f95c3c;
 
-  .main-site {
+  .main-container {
 
     $sideBar-width: 240px;
     $sideBar-color: #3BAAE9;
@@ -35,7 +35,7 @@
         margin-left: -$sideBar-width;
         top: $header-height;
         bottom: 0;
-        background: $sideBar-color;
+        background: #f4faff;
       }
 
       .boardtWrapper{

@@ -1,40 +1,96 @@
-:global .container-sidebar {
-  
-  margin-top: 100px;
-  padding:0px 20px;
+:global
+{
+  .m-nav-stacked {
+    .profile {
+      border-top: 1px solid #CED7DF;
+      border-right: 1px solid #CED7DF;
+      border-bottom: 1px solid #CED7DF;
+      vertical-align: top;
 
-  // $category-bgcolor: #DBE5ED;
-  $category-bgcolor: rgba(0, 0, 0, 0.3);
-  // $category-color: #698198;
-  $category-color: rgba(255, 255, 255, 0.6);
+      &.active { background: #fff; }
 
-  hr {
-    height: 1px;
-    margin: 20px 0;
-    border: none;
-    border-top: 1px solid rgba(255,255,255,.2);
-  }
-  
-  .category-group {
+      & > a {
+        opacity: .65;
+        transition: opacity 300ms;
+        cursor: pointer;
+      }
 
-    .category {
-      display: inline-block;
-      padding: .3em .6em;
-      margin-right: .4em;
-      margin-bottom: .3em;
-      color: $category-color;
-      // border: 1px solid $category-color;
-      border-radius: 8px;
-      text-decoration: none;
-      background: $category-bgcolor;
+      &.active > a,
+      &.active > a:hover,
+      &.active > a:focus {
+        opacity: 1;
+        box-shadow: inset -3px 0 0 #106EE8;
+        background-color: #fff;
+      }
+
+      &:not(.active) > a:hover,
+      &:not(.active) > a:focus {
+        opacity: 1;
+      }
+
+
+      
+      .profile-avatar {
+        position: relative;
+        display: inline-block;
+        width: 4.2rem;
+        height: 4.2rem;
+        vertical-align: top;
+
+        & > img {
+          width: 4rem;
+          border-radius: 50%;
+        }
+
+        & > .img {
+          width: 4.2rem;
+          height: 4.2rem;
+          background: #DDDDDD;
+          border-radius: 50%;
+        }
+      }
+
+      .profile-avatar-icon {
+        position: absolute;
+        bottom: 0;
+        left: 3rem;
+        width: 2rem;
+        height: 2rem;
+        padding-top: 3px;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+      }
+
+      .fa.fa-facebook { background: #2D4486; }
+
+      .detail {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 10px;
+
+        .username, .service { 
+          display: block;
+        }
+
+        .username {
+          margin-top: 4px;
+          color: #000;
+          font-weight: bold; 
+        }
+
+        .service {
+          color: #ccc;
+          font-size: 12px;
+        }
+
+      }
+
     }
 
-    a:hover{
-      // opacity: .5;
-      text-decoration: none;
-      color: #fff;
+    .profile:last-child {
+      border-top: none;
     }
-
   }
-  
+
 }

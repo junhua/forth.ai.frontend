@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="container-fuild pt-50">
         <Header {...props} />
-        <div className="main-site">
+        <div className="main-container">
           {children}
         </div>
         <Toast />
