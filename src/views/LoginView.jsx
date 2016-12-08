@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../containers/Account/actions';
-import { validateEmail, ROOT_URL } from '../utils';
+import { validateEmail } from '../utils';
+import OAuthLinkList from '../components/OAuthLinkList';
 
 class LoginView extends Component {
   constructor(props) {
@@ -100,24 +101,7 @@ class LoginView extends Component {
             </fieldset>
           </form>
           <hr />
-          <div>
-            <p className="description text-center">or sign in with one of these services</p>
-            <div className="bottons text-center">
-              <a className="btn btn-default btn-facebook" href={`${ROOT_URL}/accounts/facebook/login/`}>
-                <i className="fa fa-facebook-official fa-2x fa-icon facebook-official-color" aria-hidden="true" />
-                <span>FACEBOOK</span>
-              </a>
-              <a className="btn btn-default btn-github" href={`${ROOT_URL}/accounts/github/login/`}>
-                <i className="fa fa-github fa-2x fa-icon github-color" aria-hidden="true" />
-                <span>GITHUB</span>
-              </a>
-              <a className="btn btn-default btn-google" href={`${ROOT_URL}/accounts/google/login/`}>
-                <i className="fa fa-google fa-2x fa-icon google-color" aria-hidden="true" />
-                <span>GOOGLE</span>
-              </a>
-            </div>
-
-          </div>
+          <OAuthLinkList />
         </div>
       </div>
     );
