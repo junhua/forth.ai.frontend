@@ -2,14 +2,15 @@
 {
   .m-nav-stacked {
     .profile {
-      border-top: 1px solid #CED7DF;
-      border-right: 1px solid #CED7DF;
-      border-bottom: 1px solid #CED7DF;
+      border: 1px solid #CED7DF;
+      border-left: none;
       vertical-align: top;
+      margin-top: -1px;
 
       &.active { background: #fff; }
 
       & > a {
+        position: relative;
         opacity: .65;
         transition: opacity 300ms;
         cursor: pointer;
@@ -28,8 +29,6 @@
         opacity: 1;
       }
 
-
-      
       .profile-avatar {
         position: relative;
         display: inline-block;
@@ -39,6 +38,7 @@
 
         & > img {
           width: 4rem;
+          height: 4rem;
           border-radius: 50%;
         }
 
@@ -62,7 +62,7 @@
         color: #fff;
       }
 
-      .fa.fa-facebook { background: #2D4486; }
+      .fa.fa-facebook { background: #3b5999; }
 
       .detail {
         display: inline-block;
@@ -84,6 +84,21 @@
           font-size: 12px;
         }
 
+      }
+
+      .count {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        height: 20px;
+        padding: 0 5px;
+        border: 1px solid #d3d3d3;
+        border-radius: 10px;  
+        margin-top: -10px;
+        font-size: 12px;      
+        line-height: 20px;
+        vertical-align: top;
+        background: #b5d9f9;
       }
 
     }

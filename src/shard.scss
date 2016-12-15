@@ -8,6 +8,10 @@
   $django-admin-login-body-container: #fff;
 
   $udaciry-error: #f95c3c;
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
 
   .main-container {
 

@@ -133,11 +133,36 @@ export function eraseCookie(name) {
   createCookie(name, '', -1);
 }
 
-export function stopPropagation(e) {
-  e.stopPropagation();
-  e.nativeEvent.stopImmediatePropagation();
+export function stopPropagation(event) {
+  event.stopPropagation();
+  event.nativeEvent.stopImmediatePropagation();
 }
 
 if (!Array.isArray) {
   Array.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+}
+
+// http://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
+export function urlify(text) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, url => (`<a href="${url}">${url}</a>`));
+  // or alternatively
+  // return text.replace(urlRegex, '<a href="$1">$1</a>')
+}
+
+// http://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
+export function linkify(text) {
+  // http://, https://, ftp://
+  const urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+
+  // www. sans http:// or https://
+  const pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+  // Email addresses *** here I've changed the expression ***
+  const emailAddressPattern = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
+
+  return text
+      .replace(urlPattern, '<a title="link" href="$&" target="_blank"><i class="fa fa-link" aria-hidden="true"></i>$&</a>')
+      .replace(pseudoUrlPattern, '$1<a title="link" href="http://$2" target="_blank"><i class="fa fa-link" aria-hidden="true"></i>$2</a>')
+      .replace(emailAddressPattern, '<a title="link" href="mailto:$1" target="_blank"><i class="fa fa-link" aria-hidden="true"></i>$1</a>');
 }

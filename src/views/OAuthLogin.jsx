@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../containers/Account/actions';
+import * as actionCreators from '../containers/Auth/actions';
 import { readCookie, checkTokenExpiry, setJWTToStorage } from '../utils';
 
 const scope = ['github', 'facebook', 'google'];

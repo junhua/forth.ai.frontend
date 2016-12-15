@@ -1,8 +1,6 @@
 :global {
   .board-container {
-    padding-top: 50px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 50px 40px 0 40px;
 
     $normal-color: #6C6C6C;
 
@@ -16,6 +14,7 @@
     li.nav-tab.active a { color: $active-color; }
 
     .navBody {
+      padding: 20px 30px 20px 30px;
       border: 1px solid $color-border;
       border-top: none;
     }

@@ -1,82 +1,183 @@
 :global {
   $color-border: #C3CED7;
 
+  $button-primary: #248DC6;
+  $button-secondary: #2492CF;
+
+  .button {
+    outline: none;
+    padding: 6px 16px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+
+    &[disabled],
+    &[disabled]:focus,
+    &[disabled]:hover,
+    &[disabled]:active {
+      cursor: not-allowed;
+      opacity: .75;
+    }
+  }
+
   .posts {
     width: 100%;
-    padding-top: 20px;
-    padding-right: 40px;
-    // padding-left: 60px;
-    // background: yellow;
     min-height: 500px;
-    // border: 1px solid $color-posts-border;
-    // border-top: none;
 
     .itemNew {
       padding: 1em 1.5em;
       border: 1px solid $color-border;
     }
 
-    .itemBtn {
+    .itemBtn, .post-item-add-wrapper {
       padding: .5em;
-      margin-left: 60px;
-
       border: 1px solid $color-border;
+      border-radius: 8px;
     }
-
   }
 
-  /* component postItem */
-  .post-item {
-    padding-left: 60px;
-    
-    .title {
+  /* component PostItemNew, component PostItemEdit, POST Editor Component*/
 
-    }
-    
-    .arrows, .comment {
-      position: absolute;
-      top: 0;
-      left: -1.4em;
-      color: #454D55;
+  .post-editor {
+
+    .overlay-actions {
+      padding: 16px 10px;
+      background: #eeeeee;
     }
 
-    .arrows { display: none; }
+    .overlay-actions-left {
+      float: left;
 
-    &:hover .arrows { display: block; }
-    &:hover .comment { display: none; }
+      & > div { display: inline-block; }
+    }
+    .overlay-actions-right {
+      float: right;
+    }
 
-    .post-body {
+    .publish_datetime {
+      margin: 8px 0 0;
+    }
+
+    .date-button, .time-button {
+      margin-right: 12px;
+      color: #5C5C5C;
+      background: #fff;
+    }
+
+    .date-button:active, .time-button:active,
+    .date-button:hover, .time-button:hover {
+      border-color: #AEAEAE;
+    }
+
+    .post-button, .share-now-button {
+      padding-left: 20px;
+      padding-right: 20px;
+      color: #fff;
+      background: $button-primary;
+      border: 1px solid #1495BC;
+      text-transform: uppercase;
+      margin-left: 12px;   
+    }
+
+    .post-button:active, .share-button:active { transform: translateY(1px); }
+    .post-button:hover, .share-button:hover { background: $button-secondary; }
+    
+    .time-picker-panel-inner {
       position: relative;
-      padding: 1.2em;
-      color: #4A525A;
-      border: 1px solid $color-border;
-      border-radius: 0.35em;
 
-      img {
-        max-height: 84px;
+      .time-picker-panel-select {
+        position: absolute;
+        top: -55px;
+        right: -20px;
+        width: 158px;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #D4D4D4;
+        border-radius: 4px;
+        box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        z-index: 33;
+        display: inline-block;
+
+        select {
+          outline: 0;
+          width: 46px;
+          font-size: 12px;
+          height: 20px;
+          margin-right: 2px;
+          color: #323B43;
+          border: 1px solid #D4D4D4;
+          border-radius: 4px;
+          display: inline;
+          background-clip: border-box;
+          vertical-align: top;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .time-set-button {
+          background: $button-primary;
+          color: #F0F0F0;
+          border-radius: 5px;
+          padding: 0 8px;
+          font-size: 14px;
+          display: inline-block;
+
+          &:hover {
+            background: $button-secondary;
+          }
+        }
       }
     }
+    
+  }
 
-    .toolkit {
-      margin-top: 1.5em;
-      min-width: 100px;
-      text-align: right;
-      opacity: 0;
-      transition: opacity 500ms;
+  // .post-editor-form, 
+  .post-editor-inner 
+  {
+    position: fixed;
+    display: block;
+    top:0;
+    right: 0;
+    left: 0;
+    margin: 150px auto;
+    width: 708px;
+    height: auto;
+    background: #fff;
+    z-index: 1001;
 
-      a, i {
-        margin-right: .1em;
-      }
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 0px 20px 5px rgba(0,0,0, .1);
+
+    .modal-close {
+      position: absolute;
+      top: -12px;
+      right: -13px;
+      color: #5f5f5f;
+      padding: 4px 8px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      box-shadow: 0 0 8px 1px rgba(0,0,0,.1);
+      cursor: pointer;
+      z-index: 4;
+
+      &:hover { 
+        color: #333;
+        box-shadow: 0 0 8px 1px rgba(0,0,0,.3); }
     }
 
-    &:hover .toolkit {
-      opacity: 1;
+    textarea, 
+    textarea:focus,
+    textarea:active {
+      border: none;
+      box-shadow: none;
     }
   }
 
-  /* component PostItemNew, component PostItemEdit */
-  .post-item-new, .post-item-edit {
-    
+
+  .post-item-new, .post-item-edit, .post-editor-form {    
     .composer-wrapper {
       position: relative;
     }
@@ -90,6 +191,8 @@
 
     .composer-textarea-wrapper {
       position: relative;
+      padding-top: 10px;
+      padding-bottom: 16px;
       z-index: 1;
     }
 
@@ -114,6 +217,173 @@
     }
   }
   
-  .post-item-new { padding-left: 60px; }
+  // .post-item-new { padding-left: 60px; }
+
+
+
+  /* component postItem */
+  .post-item {
+
+    .update {
+      position: relative;
+      padding-bottom: 20px;
+
+      & > a {
+        position: absolute;
+        top: 5px;
+      }
+
+      &:hover .actions {
+        opacity: 1;
+      }
+    }
+
+    .update-content {
+      margin-left: 50px;
+    }
+
+    .content {
+      padding-top: 16px;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      border-radius: 6px;
+
+    }
+
+    .message {
+      padding: 0 16px;
+      color: #545454;
+
+      a, a:visited {
+        text-decoration: none;
+        word-wrap: break-word;
+        word-break: break-all;
+        color: #07C;
+      }
+
+       a:hover, a:active { color: #3af; }
+
+      .fa { margin: 0 4px 0 1px; }
+    }
+
+    .meta {
+      padding: 5px 10px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background: #f5f5f5;
+      margin: 16px 0 0;
+      overflow: hidden;
+      }
+
+      .detail { float: left; margin-bottom: 0; }
+    }
+
+    
+    .actions { text-transform: uppercase; opacity: 0; }
+    .actions > li { 
+      list-style: none;
+    }
+
+    .actions a {
+      float: right; 
+      margin-top: 3px;
+      margin-left: 16px; 
+      font-size: 12px;
+      text-decoration: none;
+      cursor: pointer;
+
+      .u-icon {
+        color: #ddd;
+      }
+
+      .action {
+        color: #1B1B1B;
+      }
+
+      &:hover .u-icon,
+      &:hover .action {
+        color: #0D0D0D;
+      }
+  }
+
+  .u-widget-overlay {
+    background: rgba(0,0,0,.65);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    z-index: 999;
+  }
+
+  .m-fade-modal {
+    position: relative;
+    
+    &:focus { outline: none; }
+    & > div:focus { outline: none; }
+
+    .m-fade-modal_inner {
+      padding: 2rem;
+
+      &:focus { outline: none; }
+
+      h3 {
+        color: #323b43;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 6px;
+        right: 16px;
+        font-size: 24px;
+        color: #D4D4D4;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          color: #4C4C4C;
+        }
+      }
+    
+      .cancel-button, .delete-button, .share-button {
+        margin: 10px auto;
+        padding: 8px 14px;
+        outline: none;
+        color: #444444;
+        background: #fff;
+        border-radius: 4px;
+      }
+
+      .cancel-button {
+        color: #444444;
+        background: #FFFFFF;
+        border: 1px solid #D4D4D4;
+
+        &:hover { border-color: #BCBCBC; }
+        &:active { background: #FCFCFC; }
+      }
+
+      .delete-button {
+        border: none;
+        color: #fff;
+        background: #C94E50;
+
+        &:hover { background: #D55155; }
+        &:active { background: #E6585B; }
+      }
+
+      .share-button {
+        border: none;
+        color: #fff;
+        background: #248DC6;
+
+        &:hover { background: #2492CF; }
+        &:active { background: #1F8CC6; }
+      }
+    }
+    
+  }
 
 }

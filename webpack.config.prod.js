@@ -21,6 +21,7 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(scss|sass)$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=2&sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true') },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

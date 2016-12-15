@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { registerUser } from '../containers/Account/actions';
+import { registerUser } from '../containers/Auth/actions';
 import RegistrationForm from '../containers/Forms/RegistrationForm';
 import OAuthLinkList from '../components/OAuthLinkList';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { emailExist } from '../Account/actions';
+import { emailExist } from '../Auth/actions';
 import { addNotification } from '../Toast/actions';
 import { validateEmail } from '../../utils';
 

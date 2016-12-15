@@ -6,7 +6,7 @@ import {
   CREATE_POST_REQUEST, CREATE_POST_FAILURE, CREATE_POST_SUCCESS,
   DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
 } from './constants';
-// import { loginFailure } from '../Account/actions';
+// import { loginFailure } from '../Auth/actions';
 import { fetchJSON, checkHttpStatus, delay, ROOT_URL } from '../../utils';
 import { addNotification } from '../Toast/actions';
 
@@ -31,7 +31,7 @@ export function fetchPostsSuccess(posts) {
   };
 }
 
-export function fetchPosts(token) {
+export function fetchPosts(token, qs) {
   return (dispatch) => {
     dispatch(fetchPostsRequest());
     const config = {
@@ -40,8 +40,8 @@ export function fetchPosts(token) {
       headers: { Authorization: `JWT ${token}` },
     };
 
-    return fetchJSON(`${ROOT_URL}/v1/posts/`, config)
-      // .then(delay(1000))
+    const query = qs ? `?${qs}` : '';
+    return fetchJSON(`${ROOT_URL}/v1/posts/${query}`, config)
       .then((response) => {
         dispatch(fetchPostsSuccess(response));
       })

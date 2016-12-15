@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../containers/Account/actions';
+import * as actionCreators from '../containers/Auth/actions';
 import { validateEmail } from '../utils';
 import OAuthLinkList from '../components/OAuthLinkList';
 
@@ -18,12 +18,12 @@ class LoginView extends Component {
     this.login = this.login.bind(this);
   }
 
-  handleChange(prop, e) {
-    this.setState({ [prop]: e.target.value });
+  handleChange(prop, event) {
+    this.setState({ [prop]: event.target.value });
   }
 
-  login(e) {
-    e.preventDefault();
+  login(event) {
+    event.preventDefault();
     const emailStr = this.email.value.toLowerCase().trim();
     const password = this.state.password;
     if (!validateEmail(emailStr)) {

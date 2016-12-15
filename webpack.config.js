@@ -39,6 +39,7 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, loader: "babel-loader" },
       { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(scss|sass)$/, loader: "style-loader!css-loader?modules&importLoaders=2&localIdentName=[name]___[local]___[hash:base64:5]!postcss-loader!sass-loader" },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

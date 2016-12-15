@@ -10,13 +10,13 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 
-describe('Account actions', () => {
+describe('Auth actions', () => {
   const response400 = {
     status: 400,
     statusText: 'Bad Request',
   };
 
-  describe('Account sync actions', () => {
+  describe('Auth sync actions', () => {
     beforeEach(() => {
       localStorage.removeItem(JWT_TOKEN);
     });
@@ -70,7 +70,7 @@ describe('Account actions', () => {
     });
   });
 
-  describe('Account async actions', () => {
+  describe('Auth async actions', () => {
     it('loginUser should create LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, and PUSH_STATE actions when API returns 200', function() {
       this.timeout(2500);
 

@@ -1,117 +1,195 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import FadeModal from 'boron/FadeModal';
 import PostItem from './PostItem';
-import PostItemNew from './PostItemNew';
 import PostItemBtn from './PostItemBtn';
+import PostEditor from './PostEditor';
 import * as actionCreators from './actions';
-import './Post.scss';
-import { stopPropagation, getJWTFromStorage } from '../../utils';
+import { getJWTFromStorage } from '../../utils';
 import { addNotification } from '../Toast/actions';
+import './Post.scss';
 
 class PostBoard extends Component {
 
   constructor(props) {
     super(props);
-    this.handleCreatePost = this.handleCreatePost.bind(this);
+
     this.toggleCreate = this.toggleCreate.bind(this);
-    this.toggleEditId = this.toggleEditId.bind(this);
-    this.restState = this.restState.bind(this);
+    this.toggleEditor = this.toggleEditor.bind(this);
+    this.restCreatedAndEditId = this.restCreatedAndEditId.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreatePost = this.handleCreatePost.bind(this);
     this.handleDeletePost = this.handleDeletePost.bind(this);
+    this.handleSharePost = this.handleSharePost.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.renderEditor = this.renderEditor.bind(this);
+    this.renderModal = this.renderModal.bind(this);
   }
 
   state = {
-    creating: false,
+    isCreated: false,
     editId: null,
-  }
-
-  componentWillMount() {
-    this.props.actions.fetchPosts(getJWTFromStorage());
-  }
-
-  // shouldComponentUpdate() {
-  //   if (this.props.isFetching) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
-  componentDidMount() {
-    document.addEventListener('click', this.restState, false);
+    selectedPost: null,
+    action: null,
   }
 
   componentWillReceiveProps(nextProps) {
-    const { success } = nextProps;
-    if (success) {
-      this.restState();
+    if (nextProps.selectedAccount !== this.props.selectedAccount) {
+      this.props.actions.fetchPosts(getJWTFromStorage(), `status=0&page_id=${nextProps.selectedAccount.id}`);
     }
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.restState, false);
+  restCreatedAndEditId() {
+    this.setState({ isCreated: false, editId: null });
   }
 
-  setCreate(creating) {
-    this.setState({ creating });
+  toggleCreate() {
+    this.setState({ isCreated: true, editId: null });
   }
 
-  setEditId(postId) {
-    this.setState({ editId: postId });
-  }
-
-  restState() {
-    this.setCreate(false);
-    this.setEditId(null);
-  }
-
-  toggleCreate(e) {
-    stopPropagation(e);
-    this.setCreate(true);
-    this.setEditId(null);
-  }
-
-  toggleEditId(postId) {
-    this.setCreate(false);
-    this.setEditId(postId);
+  toggleEditor(postId) {
+    return () => {
+      this.setState({ isCreated: false, editId: postId });
+    };
   }
 
   handleCreatePost(post) {
-    const mergePost = Object.assign({}, {
-      type: 2,
-      themes: [],
-      keywords: [],
-    }, post);
-
-    this.props.actions.createPost(mergePost, getJWTFromStorage());
+    this.props.actions.createPost(
+      Object.assign({}, {
+        type: 2,
+        themes: [],
+        keywords: [],
+      }, post),
+      getJWTFromStorage());
   }
 
   handleUpdatePost(post) {
-    return (newPost) => {
-      const mergePost = Object.assign({}, post, newPost);
-      this.props.actions.updatePost(mergePost, getJWTFromStorage());
-    };
+    this.props.actions.updatePost(post, getJWTFromStorage());
   }
 
-  handleDeletePost(id) {
-    return (e) => {
-      e.stopPropagation();
-      // this.props.actions.deletePost(id, getJWTFromStorage());
-      this.props.removePostWithUndo(id);
-    };
+  handleDeletePost() {
+    // this.props.actions.deletePost(id, getJWTFromStorage());
+    console.warn(this.state.selectedPost);
+    this.props.removePostWithUndo(this.state.selectedPost.id);
+    this.toggleModal(null, null);
+  }
+
+  handleSharePost() {
+    console.warn(this.state.selectedPost);
+    this.toggleModal(null, null);
+  }
+
+  handleSubmit(values) {
+    const { selectedAccount } = this.props;
+    const { action } = values;
+
+    delete values.action;
+
+    if (action === 'CREATE_POST') {
+      values.pages = [{ id: selectedAccount.id }];
+      this.handleCreatePost(values);
+    } else if (action === 'PUBLISH_NOW') {
+      values.publish_now = true;
+      values.pages = [{ id: selectedAccount.id }];
+      console.warn('unfinished PUBLISH_NOW', values);
+    } else if (action === 'UPDATE_POST') {
+      this.handleUpdatePost(values);
+    }
+
+    this.restCreatedAndEditId();
+  }
+
+  toggleModal(post, action) {
+    this.modal.toggle();
+    console.warn('toggleModal', typeof action);
+
+    if (typeof action === 'string') {
+      this.setState({ selectedPost: post, action });
+    } else {
+      // hidden Modal, 300ms animation
+      setTimeout(this.setState.bind(this, { selectedPost: null, action: null }), 300);
+    }
+  }
+
+  renderEditor() {
+    const { isCreated, editId } = this.state;
+    const { posts } = this.props;
+
+    if (isCreated) {
+      return (
+        <PostEditor
+          action="CREATE_POST"
+          publishDate={moment().add(3, 'hours')}
+          onClose={this.restCreatedAndEditId}
+          onSubmit={this.handleSubmit}
+        />);
+    }
+
+    if (editId !== null) {
+      const post = (posts.filter(p => p.id === editId))[0];
+      return (
+        <PostEditor
+          initialValues={post}
+          post={post}
+          action="UPDATE_POST"
+          publishDate={moment(post.publish_date)}
+          onClose={this.restCreatedAndEditId}
+          onSubmit={this.handleSubmit}
+        />);
+    }
+
+    return null;
+  }
+
+  renderModal() {
+    const { action } = this.state;
+    let heading = null;
+    let confirmButton = null;
+
+    if (action === 'DELETE') {
+      heading = (<h3>Do you really want to delete this?</h3>);
+      confirmButton = (<button className="pull-right delete-button" onClick={this.handleDeletePost}>Delete</button>);
+    } else if (action === 'SHARE') {
+      heading = (<h3>Share now?</h3>);
+      confirmButton = (<button className="pull-right share-button" onClick={() => { console.warn('unfinished SHARE_NOW'); this.toggleModal(null, null); }}>Share</button>);
+    }
+
+    return (
+      <FadeModal
+        ref={node => (this.modal = node)}
+        className="m-fade-modal"
+        modalStyle={{ width: '400px' }}
+        contentStyle={{ borderRadius: '4px' }}
+      >
+        <div className="m-fade-modal_inner">
+          {heading}
+          {/* <p>{selectedPost && selectedPost.content}</p>*/}
+          <a className="close-button" onClick={this.toggleModal}>
+            <i className="fa fa-times" />
+            <span className="sr-only">close</span>
+          </a>
+          <div className="button-group clearfix">
+            <button className="pull-left cancel-button" onClick={this.toggleModal}>Cancel</button>
+            {confirmButton}
+          </div>
+        </div>
+      </FadeModal>
+    );
   }
 
   render() {
-    const { creating, editId } = this.state;
     const { posts, isFetching } = this.props;
 
     const postList = posts.map(
       post => (
         <PostItem
           {...this.props}
-          post={post} key={post.id} editId={editId}
-          toggleEditId={this.toggleEditId}
-          handleUpdatePost={this.handleUpdatePost(post)}
-          handleDeletePost={this.handleDeletePost(post.id)}
+          post={post} key={post.id}
+          toggleEditor={this.toggleEditor}
+          toggleModal={this.toggleModal}
+          handleDeletePost={this.handleDeletePost}
         />
       )
     );
@@ -125,11 +203,9 @@ class PostBoard extends Component {
           </div>
         }
         {postList}
-        {creating ?
-          <PostItemNew onSubmit={this.handleCreatePost} />
-          :
-          <PostItemBtn onToggle={this.toggleCreate} />
-        }
+        <PostItemBtn onToggle={this.toggleCreate} />
+        {this.renderEditor()}
+        {this.renderModal()}
       </div>
     );
   }
@@ -142,15 +218,17 @@ PostBoard.propTypes = {
   // success: React.PropTypes.bool.isRequired,
   // failure: React.PropTypes.bool.isRequired,
   actions: React.PropTypes.object.isRequired,
+  selectedAccount: React.PropTypes.object.isRequired,
   removePostWithUndo: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isFetching: state.posts.isFetching,
-  posts: state.posts.allPost,
-  pending: state.posts.isFetching,
-  success: !state.posts.isFetching && !state.posts.error,
-  failure: !state.posts.isFetching && !!state.posts.error,
+  isFetching: state.post.isFetching,
+  posts: state.post.allPost,
+  pending: state.post.isFetching,
+  success: !state.post.isFetching && !state.post.error,
+  failure: !state.post.isFetching && !!state.post.error,
+  selectedAccount: state.account.selected,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import Root from './app/Root';
 import configureStore from './store/configureStore';
-import { loginUserSuccess } from './containers/Account/actions';
+import { loginUserSuccess } from './containers/Auth/actions';
 import { checkTokenExpiry, getJWTFromStorage } from './utils';
 
 require('es6-promise').polyfill();

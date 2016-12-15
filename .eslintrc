@@ -155,7 +155,7 @@
     // React
     "jsx-quotes": [2, "prefer-double"],
     "react/display-name": 0,
-    "react/jsx-boolean-value": 1,
+    "react/jsx-boolean-value": 0,
     "react/jsx-no-undef": 2,
     "react/jsx-sort-prop-types": 0,
     "react/jsx-sort-props": 0,
@@ -177,6 +177,7 @@
     "no-useless-escape": 0,
     "max-len": 0,
     "no-lonely-if": 0,
+    "react/no-danger": 0,
   },
   "plugins": [
     "react"

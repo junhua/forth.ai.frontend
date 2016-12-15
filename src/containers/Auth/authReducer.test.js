@@ -3,7 +3,7 @@ import authReducer from './authReducer';
 import * as ACTIONS from './actions';
 import jwtDecode from 'jwt-decode';
 
-describe('Account reducers', () => {
+describe('Auth reducers', () => {
   const initialState = {
     token: null,
     userName: null,

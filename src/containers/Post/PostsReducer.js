@@ -9,7 +9,7 @@ import {
 const initialState = {
   isFetching: false,
   allPost: [],
-  singlePost: {},
+  // singlePost: {},
   error: '',
 };
 

@@ -14,8 +14,8 @@ function toggle(els, selectedIndex) {
 }
 
 function toggleTab(selectedIndex) {
-  return (e) => {
-    e.stopPropagation();
+  return (event) => {
+    event.stopPropagation();
 
     const tabs = toArray(document.querySelectorAll('.board-container .nav-tab'));
     const items = toArray(document.querySelectorAll('.board-container .nav-item'));

@@ -13,7 +13,6 @@ export default (
     <IndexRoute component={requireAuthentication(Home)} />
     <Route path="signup" component={RegistrationView} />
     <Route path="login" component={Login} />
-    <Route path="home" component={Home} />
     <Route path=":OAuth/login" component={OAuthLogin} />
     <Route path="404" component={NotFound} />
     <Redirect from="*" to="404" />
