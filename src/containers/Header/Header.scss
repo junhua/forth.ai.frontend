@@ -32,6 +32,7 @@ $min-width: 700px;
 
   a {
     color: $login-color;
+    cursor: pointer;
 
     &:hover {
       color: $logo-color;

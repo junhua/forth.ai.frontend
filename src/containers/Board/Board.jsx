@@ -1,84 +1,44 @@
 import React from 'react';
-import { toArray } from '../../utils';
 import PostBoard from '../Post/PostBoard';
 import './Board.scss';
 
-function toggle(els, selectedIndex) {
-  els.map((el, index) => {
-    el.classList.remove('active');
-    if (selectedIndex === index) {
-      el.classList.add('active');
-    }
-    return el;
-  });
-}
-
-function toggleTab(selectedIndex) {
-  return (event) => {
-    event.stopPropagation();
-
-    const tabs = toArray(document.querySelectorAll('.board-container .nav-tab'));
-    const items = toArray(document.querySelectorAll('.board-container .nav-item'));
-
-    toggle(tabs, selectedIndex);
-    toggle(items, selectedIndex);
-  };
-}
+import { Tabs, TabList, Tab, TabPanel } from '../../components';
 
 function Board() {
   return (
     <div className="container-fuild board-container">
-      <ul className="nav nav-tabs nav-justified">
-        <li role="presentation" className="nav-tab active">
-          <a href="javascript:void(0)" onClick={toggleTab(0)}>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
-        </li>
-        <li role="presentation" className="nav-tab">
-          <a href="javascript:void(0)" onClick={toggleTab(1)}>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
-        </li>
-        <li role="presentation" className="nav-tab">
-          <a href="javascript:void(0)" onClick={toggleTab(2)}>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
-        </li>
-        <li role="presentation" className="nav-tab">
-          <a href="javascript:void(0)" onClick={toggleTab(3)}>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
-        </li>
-      </ul>
+      <Tabs selected={0}>
+        <TabList>
+          <Tab>
+            <a>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
+          </Tab>
+          <Tab>
+            <a>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
+          </Tab>
+          <Tab>
+            <a>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
+          </Tab>
+          <Tab>
+            <a>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
+          </Tab>
+        </TabList>
 
-      <ul className="nav navBody">
-        <li className="nav-item active queue">
+        <TabPanel>
           <PostBoard />
-        </li>
-        <li className="nav-item analytics">
+        </TabPanel>
+
+        <TabPanel>
           analytics
-        </li>
-        <li className="nav-item plan">
+        </TabPanel>
+
+        <TabPanel>
           plan
-        </li>
-        <li className="nav-item settings">
-          settings
-        </li>
-      </ul>
+        </TabPanel>
 
-      {/* <i className="fa fa-check-circle-o" aria-hidden="true" />
-      <i className="fa fa-minus-circle" aria-hidden="true" />
-      <i className="fa fa-tasks" aria-hidden="true" />
-      <i className="fa fa-gear" aria-hidden="true" />
-      <i className="fa fa-arrows" aria-hidden="true" />
-      <i className="fa fa-edit" aria-hidden="true" />
-      <i className="fa fa-times-circle-o" aria-hidden="true" />
-      <i className="fa fa-pencil" aria-hidden="true" />
-      <i className="fa fa-plus-circle" aria-hidden="true" />
-      <i className="fa fa-bar-chart" aria-hidden="true" />
-      <i className="fa fa-google-plus" aria-hidden="true" />
-      <i className="fa fa-facebook" aria-hidden="true" />
-      <i className="fa fa-twitter" aria-hidden="true" />
-      <i className="fa fa-plus-square-o" aria-hidden="true" />
-      <i className="fa fa-plus-circle-o" aria-hidden="true" />
-
-      <span className="fa-stack fa-lg">
-        <i className="fa fa-square-o fa-stack-2x" />
-        <i className="fa fa-twitter fa-stack-1x" />
-      </span>*/}
-
+        <TabPanel>
+          setting
+        </TabPanel>
+      </Tabs>
     </div>
   );
 }

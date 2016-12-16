@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'react-router/lib/Link';
+// import Link from 'react-router/lib/Link';
 import './Header.scss';
 
 function Header({ isAuthenticated, logout }) {
@@ -11,15 +11,15 @@ function Header({ isAuthenticated, logout }) {
             <h2>forth.ai</h2>
           </div>
           <div className="navbar-right pull-right navigator">
-            { isAuthenticated ?
+            { isAuthenticated &&
               <ul className="nav nav-pills">
-                <li role="presentation"><a href="#Profile">Profile</a></li>
-                <li role="presentation"><a href="#Logout" onClick={logout}>Logout</a></li>
+                {/* <li role="presentation"><a>Profile</a></li>*/}
+                <li role="presentation"><a onClick={logout}>Logout</a></li>
               </ul>
-              :
+             /* :
               <ul className="nav nav-pills">
                 <li role="presentation"><Link to="/login?redirect=/">Login</Link></li>
-              </ul>
+              </ul>*/
             }
           </div>
         </div>

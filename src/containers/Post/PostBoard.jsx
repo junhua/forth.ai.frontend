@@ -77,8 +77,15 @@ class PostBoard extends Component {
   }
 
   handleSharePost() {
-    console.warn(this.state.selectedPost);
+    const { selectedPost } = this.state;
+    const { selectedAccount } = this.props;
+
+    selectedPost.publish_now = true;
+    selectedPost.pages = [{ id: selectedAccount.id }];
+    this.handleUpdatePost(selectedPost);
     this.toggleModal(null, null);
+
+    console.warn('!@May be unfinished.', selectedPost);
   }
 
   handleSubmit(values) {
@@ -90,10 +97,10 @@ class PostBoard extends Component {
     if (action === 'CREATE_POST') {
       values.pages = [{ id: selectedAccount.id }];
       this.handleCreatePost(values);
-    } else if (action === 'PUBLISH_NOW') {
+    } else if (action === 'PUBLISH_NOW') { // Share now (will be created post).
       values.publish_now = true;
       values.pages = [{ id: selectedAccount.id }];
-      console.warn('unfinished PUBLISH_NOW', values);
+      this.handleCreatePost(values);
     } else if (action === 'UPDATE_POST') {
       this.handleUpdatePost(values);
     }
@@ -103,7 +110,6 @@ class PostBoard extends Component {
 
   toggleModal(post, action) {
     this.modal.toggle();
-    console.warn('toggleModal', typeof action);
 
     if (typeof action === 'string') {
       this.setState({ selectedPost: post, action });
@@ -151,9 +157,9 @@ class PostBoard extends Component {
     if (action === 'DELETE') {
       heading = (<h3>Do you really want to delete this?</h3>);
       confirmButton = (<button className="pull-right delete-button" onClick={this.handleDeletePost}>Delete</button>);
-    } else if (action === 'SHARE') {
+    } else if (action === 'SHARE_NOW') {
       heading = (<h3>Share now?</h3>);
-      confirmButton = (<button className="pull-right share-button" onClick={() => { console.warn('unfinished SHARE_NOW'); this.toggleModal(null, null); }}>Share</button>);
+      confirmButton = (<button className="pull-right share-button" onClick={this.handleSharePost}>Share</button>);
     }
 
     return (

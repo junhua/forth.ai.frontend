@@ -39,14 +39,14 @@ class SideBar extends Component {
             <span className="username">{account.name}</span>
             <span className="text-capitalize service">{account.provider}</span>
           </div>
-          <span className="count">10</span>
+          {/* <span className="count">10</span>*/}
         </a>
       </li>
       )
     );
 
     return (
-      <nav className="g-sidebar" style={{ minHeight: '300px' }}>
+      <nav className="g-sidebar">
         <div className="m-sidebar-container">
           <ul className="nav m-nav-stacked">
             {accountList}

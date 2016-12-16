@@ -22,7 +22,7 @@ function PostItem(props) {
               <p className="detail">{moment(post.publish_date).format('MMM D, YYYY hh:mm A')}</p>
               <ul className="actions">
                 <li>
-                  <a onClick={() => toggleModal(post, 'SHARE')}>
+                  <a onClick={() => toggleModal(post, 'SHARE_NOW')}>
                     <i className="fa fa-share u-icon" aria-hidden="true" />
                     <span>&nbsp;&nbsp;</span>
                     <span className="action">SHARE NOW</span>

@@ -141,7 +141,7 @@
     right: 0;
     left: 0;
     margin: 150px auto;
-    width: 708px;
+    width: 608px;
     height: auto;
     background: #fff;
     z-index: 1001;
@@ -253,6 +253,7 @@
     .message {
       padding: 0 16px;
       color: #545454;
+      white-space: pre-line;
 
       a, a:visited {
         text-decoration: none;

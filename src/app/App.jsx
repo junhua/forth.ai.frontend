@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { NotificationStack } from 'react-notification';
 import { logoutAndRedirect } from '../containers/Auth/actions';
 import Header from '../containers/Header/Header';
 import Toast from '../containers/Toast/Toast';
 import '../shard.scss';
-import '../../assets/images/wiki_global.png';
+import '../images/wiki_global.png';
 
 class App extends Component {
   render() {

@@ -1,25 +1,30 @@
-:global {
+:global 
+{
   .board-container {
     padding: 50px 40px 0 40px;
 
     $normal-color: #6C6C6C;
 
-    a { color: $normal-color; }
+    a { 
+      color: $normal-color;
+      cursor: pointer;
+    }
 
-    $color-posts-border: #D0D0D0;
-    $color-border: #C3CED7;
+    $color-border: #DDD;
     $active-color: #1870DD;
     
     
     li.nav-tab.active a { color: $active-color; }
 
-    .navBody {
+   .tab-panel {
       padding: 20px 30px 20px 30px;
       border: 1px solid $color-border;
       border-top: none;
-    }
+      display: none;
 
-    .nav-item { display: none; }
-    .nav-item.active { display: block; }
+      &.tab-panel-active {
+        display: block;
+      }
+    }
   }
 }

@@ -140,7 +140,7 @@ class PostEditor extends Component {
                         }));
                       })
                     }
-                  >PUBLISH NOW</button>}
+                  >SHARE NOW</button>}
                 <button
                   className="button post-button"
                   disabled={action === 'CREATE_POST' ? (pristine || submitting) : false}

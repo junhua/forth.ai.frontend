@@ -3,7 +3,6 @@ import Route from 'react-router/lib/Route';
 import IndexRoute from 'react-router/lib/IndexRoute';
 import Redirect from 'react-router/lib/Redirect';
 
-
 import App from './App';
 import { Login, NotFound, Home, OAuthLogin, RegistrationView } from '../views';
 import { requireAuthentication } from '../utils';

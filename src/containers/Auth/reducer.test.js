@@ -1,5 +1,5 @@
 import expect from 'expect';
-import authReducer from './authReducer';
+import authReducer from './reducer';
 import * as ACTIONS from './actions';
 import jwtDecode from 'jwt-decode';
 

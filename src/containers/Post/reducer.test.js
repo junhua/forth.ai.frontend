@@ -1,5 +1,5 @@
 import expect from 'expect';
-import postsReducer from './PostsReducer';
+import postsReducer from './reducer';
 import * as ACTIONS from './actions';
 
 describe('Post reducers', () => {
