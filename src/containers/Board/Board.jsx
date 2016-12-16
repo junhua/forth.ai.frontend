@@ -1,89 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PostBoard from '../Post/PostBoard';
-import { toArray } from '../../utils';
 import './Board.scss';
 
-// import { Tabs, TabList, Tab, TabPanel } from '../../components';
+class Board extends Component {
+  constructor(props) {
+    super(props);
 
-function toggle(elms, selected, className) {
-  elms.map((elm, index) => {
-    elm.classList.remove(className);
-    if (selected === index) {
-      elm.classList.add(className);
-    }
-    return elm;
-  });
-}
-
-function toggleTab(selected) {
-  return () => {
-    const tabs = toArray(document.querySelectorAll('.board-container .js-tab'));
-    const tabPanels = toArray(document.querySelectorAll('.board-container .js-tab-panel'));
-
-    toggle(tabs, selected, 'active');
-    toggle(tabPanels, selected, 'tab-panel-active');
+    this.handleSelected = this.handleSelected.bind(this);
+    this.renderTabList = this.renderTabList.bind(this);
+    this.renderTabPanels = this.renderTabPanels.bind(this);
+  }
+  state = {
+    selected: 0,
+    tabs: [
+      <a>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>,
+      <a>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>,
+      <a>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>,
+      <a>Settings <i className="fa fa-cog" aria-hidden="true" /></a>,
+    ],
+    tabPanels: [
+      <PostBoard />,
+      'Analytics',
+      'Plan',
+      'Settings',
+    ],
   };
-}
 
-function Board() {
-  return (
-    <div className="container-fuild board-container">
-      <div className="tabs">
-        <ul className="nav nav-tabs nav-justified tab-list">
-          <li className="nav-tab tab active js-tab" onClick={toggleTab(0)}>
-            <a>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
-          </li>
-          <li className="nav-tab tab js-tab" onClick={toggleTab(1)}>
-            <a>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
-          </li>
-          <li className="nav-tab tab js-tab" onClick={toggleTab(2)}>
-            <a>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
-          </li>
-          <li className="nav-tab tab js-tab" onClick={toggleTab(3)}>
-            <a>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
-          </li>
-        </ul>
-        <div className="tab-panel tab-panel-active js-tab-panel"><PostBoard /></div>
-        <div className="tab-panel js-tab-panel">analytics</div>
-        <div className="tab-panel js-tab-panel">plan</div>
-        <div className="tab-panel js-tab-panel">setting</div>
+  setSelected(selected) {
+    if (selected < 0) return;
+    if (selected === this.state.selected) return;
+    this.setState({ selected });
+  }
+
+  handleSelected(selected) {
+    return () => this.setSelected(selected);
+  }
+
+  renderTabList() {
+    const { selected, tabs } = this.state;
+    return tabs.map((tab, index) => {
+      const className = (selected === index) ? 'nav-tab tab active' : 'nav-tab tab';
+      return (<li className={className} key={index} onClick={this.handleSelected(index)}>{tab}</li>);
+    });
+  }
+
+  renderTabPanels() {
+    const { selected, tabPanels } = this.state;
+    /* return tabPanels.map((tabPanel, index) => {
+      const className = (index === selected) ? 'tab-panel tab-panel-active' : 'tab-panel';
+      return (<div className={className} key={index}>{tabPanel}</div>);
+    });*/
+
+    return (
+      <div className="tab-panel tab-panel-active">
+        { tabPanels[selected] }
+      </div>);
+  }
+
+  render() {
+    return (
+      <div className="container-fuild board-container">
+        <div className="tabs">
+          <ul className="nav nav-tabs nav-justified tab-list">
+            {this.renderTabList()}
+          </ul>
+          {this.renderTabPanels()}
+        </div>
       </div>
-
-
-      {/* <Tabs selected={0}>
-        <TabList>
-          <Tab>
-            <a>Queue <i className="fa fa-calendar" aria-hidden="true" /></a>
-          </Tab>
-          <Tab>
-            <a>Analytics <i className="fa fa-bar-chart" aria-hidden="true" /></a>
-          </Tab>
-          <Tab>
-            <a>Plan <i className="fa fa-lightbulb-o" aria-hidden="true" /></a>
-          </Tab>
-          <Tab>
-            <a>Settings <i className="fa fa-cog" aria-hidden="true" /></a>
-          </Tab>
-        </TabList>
-
-        <TabPanel>
-          <PostBoard />
-        </TabPanel>
-
-        <TabPanel>
-          analytics
-        </TabPanel>
-
-        <TabPanel>
-          plan
-        </TabPanel>
-
-        <TabPanel>
-          setting
-        </TabPanel>
-      </Tabs>*/}
-    </div>
-  );
+    );
+  }
 }
 
 export default Board;
