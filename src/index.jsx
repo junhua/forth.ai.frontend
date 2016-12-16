@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDom from 'react-dom';
 import browserHistory from 'react-router/lib/browserHistory';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 
 import Root from './app/Root';
 import configureStore from './store/configureStore';
@@ -22,7 +22,7 @@ const token = getJWTFromStorage();
 
 if (checkTokenExpiry()) {
   store.dispatch(loginUserSuccess(token));
-  store.dispatch(push('/'));
+  // store.dispatch(push('/'));
 }
 
 ReactDom.render(node, target);

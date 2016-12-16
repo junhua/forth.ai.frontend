@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function Redirect() {
-  return <div className="sr-only" />;
+class Redirect extends Component {
+
+  componentWillMount() {
+    if (window) {
+      window.location = 'https://www.facebook.com/forthai';
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Redirect...</h1>
+      </div>
+    );
+  }
 }
 
 export default Redirect;

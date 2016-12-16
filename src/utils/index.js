@@ -33,9 +33,19 @@ export function parseJSON(response) {
   return response.json();
 }
 
+export const nonRequireAuthentication = UserAuthWrapper({
+  authSelector: state => state.auth,
+  predicate: auth => !auth.isAuthenticated,
+  failureRedirectPath: '/',
+  allowRedirectBack: false,
+  redirectAction: push,
+  wrapperDisplayName: 'UserIsNotJWTAuthenticated',
+});
+
 export const requireAuthentication = UserAuthWrapper({
   authSelector: state => state.auth,
   predicate: auth => auth.isAuthenticated,
+  failureRedirectPath: '/login',
   redirectAction: push,
   wrapperDisplayName: 'UserIsJWTAuthenticated',
 });
@@ -78,8 +88,8 @@ export function validateEmail(str) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(str);
 }
 
-export function toArray(els) {
-  return Array.prototype.slice.call(els);
+export function toArray(arrayLike) {
+  return Array.prototype.slice.call(arrayLike);
 }
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));

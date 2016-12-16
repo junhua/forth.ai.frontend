@@ -3,3 +3,4 @@ export Login from './LoginView';
 export Home from './Home';
 export OAuthLogin from './OAuthLogin';
 export RegistrationView from './RegistrationView';
+export Redirect from './Redirect';
