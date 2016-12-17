@@ -9,15 +9,52 @@ var path = require('path');
 var autoprefixer = require('autoprefixer');
 var precss =  require('precss');
 
+var node_dir = __dirname + '/node_modules';
+
 module.exports = {
+  devtool: 'source-map',
   target: 'web',
-  entry: [ "./src/index.jsx" ],
+  // entry: [ "./src/index.jsx" ],
+  entry: {
+    app: "./src/index.jsx",
+    vendor: [
+      'react',
+      'react-notification',
+      'react-datepicker',
+      'react-dom',
+      'redux',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux-form',
+      'redux-thunk',
+      'redux-auth-wrapper',
+      'jwt-decode',
+      'isomorphic-fetch',
+      'boron/FadeModal',
+      'es6-promise',
+      'babel-polyfill',
+      'isomorphic-fetch'
+    ]
+  },
   output: {
     path      : path.join(__dirname, 'dist'),
     publicPath: '/', // Simulate CDN
     filename  : 'bundle.[chunkhash:8].js'
   },
+  externals: {
+    moment: 'moment',
+    jquery: 'jQuery'
+  },
+  resolve: {
+    extensions: ['', '.json', '.js', '.jsx'],
+    modules: ["node_modules"],
+    alias: {
+    }
+  },
   module: {
+    noParse: [
+    ],
     loaders: [
       { test: /\.jsx?$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader' },
       { test: /\.json$/, loader: 'json-loader' },
@@ -42,7 +79,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist'], { verbose: true, dry: false, exclude: ["images"] }),
-    
+    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js", Infinity),
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('css/[name].[contenthash:5].css', { disable: false, allChunks: true }), //Extract to styles.css file
     new webpack.DefinePlugin({
@@ -56,7 +93,16 @@ module.exports = {
       template: 'index.template.prod.html',
       inject  : 'body',
       favicon:'./src/images/favico.ico',
-      filename: 'index.html'
+      filename: 'index.html',
+      minify: {
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
+        removeRedundantAttributes: true,
+        removeEmptyAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        removeComments: true
+     }
     }),
 
     // optimizations
@@ -90,19 +136,27 @@ module.exports = {
     //   minRatio: 0.9
     // })
   ],
-  resolve: {
-    alias: {
-      $: 'jquery',
-      jQuery: 'jquery',
-      "window.$": 'jquery',
-      "window.jQuery": 'jquery',
-    },
-    extensions: ['', '.json', '.js', '.jsx']
-  },
   postcss: function() {
     return [
       precss, 
       autoprefixer({ browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3'] })
     ];
-  }
+  },
+
+  profile: true,
+  stats: {
+    hash: true,
+    version: true,
+    timings: true,
+    assets: true,
+    chunks: true,
+    modules: true,
+    reasons: true,
+    children: true,
+    source: false,
+    errors: true,
+    errorDetails: true,
+    warnings: true,
+    publicPath: true
+  },
 }

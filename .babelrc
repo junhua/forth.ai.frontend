@@ -3,6 +3,12 @@
   "env": {
     "dev": {
       "plugins": ["react-hot-loader/babel"]
+    },
+    "production": {
+      "plugins": [
+        "transform-react-constant-elements",
+        "transform-react-inline-elements"
+      ]
     }
   }
 }

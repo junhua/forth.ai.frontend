@@ -20,7 +20,9 @@ class OAuthLogin extends Component {
         setJWTToStorage(jwt);
         if (checkTokenExpiry()) {
           this.props.actions.loginUserSuccess(jwt);
-          this.context.router.replace('/home/');
+          this.context.router.replace('/');
+        } else {
+          this.context.router.replace('/login?redirect=/');
         }
       } else {
         this.context.router.replace('/login?redirect=/');
@@ -34,7 +36,7 @@ class OAuthLogin extends Component {
 
   render() {
     return (
-      <div className="sr-only">hello world</div>
+      <div className="sr-only">oAuth login</div>
     );
   }
 }
