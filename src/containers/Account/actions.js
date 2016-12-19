@@ -2,6 +2,8 @@ import {
   FETCH_ACCOUNTS_REQUEST, FETCH_ACCOUNTS_SUCCESS, FETCH_ACCOUNTS_FAILURE,
   SET_SELECTED_ACCOUNT } from './constants';
 import { fetchJSON, ROOT_URL } from '../../utils';
+import { addNotification } from '../Toast/actions';
+import { loginUserFailure } from '../Auth/actions';
 
 export function fetchAccountsRequest() { return { type: FETCH_ACCOUNTS_REQUEST }; }
 
@@ -39,7 +41,13 @@ export function fetchAccounts(token) {
         dispatch(fetchAccountsSuccess(response));
       })
       .catch((error) => {
-        dispatch(fetchAccountsFailure(error));
+        if (error.response.status >= 500) {
+          dispatch(fetchAccountsFailure(error));
+          dispatch(addNotification('The server is currently undergoing maintainence. Try again later!'));
+          dispatch(loginUserFailure(error));
+        } else {
+          dispatch(fetchAccountsFailure(error));
+        }
       });
   };
 }

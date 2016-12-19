@@ -4,6 +4,7 @@ import {
   UPDATE_POST_REQUEST, UPDATE_POST_FAILURE, UPDATE_POST_SUCCESS,
   CREATE_POST_REQUEST, CREATE_POST_FAILURE, CREATE_POST_SUCCESS,
   DELETE_POST_REQUEST, DELETE_POST_FAILURE, DELETE_POST_SUCCESS,
+  SHARE_POST_REQUEST, SHARE_POST_FAILURE, SHARE_POST_SUCCESS,
 } from './constants';
 
 const initialState = {
@@ -22,7 +23,7 @@ export default createReducer(initialState, {
   [FETCH_POSTS_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: payload.posts,
+      allPost: payload,
       error: '',
     })
   ),
@@ -47,7 +48,7 @@ export default createReducer(initialState, {
   [UPDATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: state.allPost.map(post => (post.id === payload.post.id ? payload.post : post)),
+      allPost: state.allPost.map(post => (post.id === payload.id ? payload : post)),
       error: '',
     })
   ),
@@ -67,7 +68,7 @@ export default createReducer(initialState, {
   [CREATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
-      allPost: state.allPost.concat([payload.post]),
+      allPost: state.allPost.concat(payload.posts.filter(post => post.status !== 1)),
       error: '',
     })
   ),
@@ -84,6 +85,26 @@ export default createReducer(initialState, {
     })
   ),
   [DELETE_POST_SUCCESS]: (state, payload) => (
+    Object.assign({}, state, {
+      isFetching: false,
+      allPost: state.allPost.filter(post => post.id !== payload.id),
+      error: '',
+    })
+  ),
+
+  [SHARE_POST_REQUEST]: state => (
+    Object.assign({}, state, {
+      isFetching: true,
+    })
+  ),
+  [SHARE_POST_FAILURE]: (state, payload) => (
+    Object.assign({}, state, {
+      isFetching: false,
+      error: payload,
+    })
+  ),
+
+  [SHARE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
       isFetching: false,
       allPost: state.allPost.filter(post => post.id !== payload.id),

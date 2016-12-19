@@ -37,7 +37,7 @@ class PostBoard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedAccount !== this.props.selectedAccount) {
-      this.props.actions.fetchPosts(getJWTFromStorage(), `status=0&page_id=${nextProps.selectedAccount.id}`);
+      this.props.actions.fetchPosts(getJWTFromStorage(), `status=0&page=${nextProps.selectedAccount.id}`);
     }
   }
 
@@ -78,11 +78,12 @@ class PostBoard extends Component {
 
   handleSharePost() {
     const { selectedPost } = this.state;
-    const { selectedAccount } = this.props;
+    const { selectedAccount, actions: { sharePost } } = this.props;
 
     selectedPost.publish_now = true;
     selectedPost.pages = [{ id: selectedAccount.id }];
-    this.handleUpdatePost(selectedPost);
+    // this.handleUpdatePost(selectedPost);
+    sharePost(selectedPost, getJWTFromStorage());
     this.toggleModal(null, null);
 
     console.warn('!@May be unfinished.', selectedPost);
