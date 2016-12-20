@@ -8,8 +8,8 @@ import {
 } from './constants';
 
 const initialState = {
-  isFetching: false,
-  allPost: [],
+  inProgress: false,
+  all: [],
   // singlePost: {},
   error: '',
 };
@@ -17,38 +17,38 @@ const initialState = {
 export default createReducer(initialState, {
   [FETCH_POSTS_REQUEST]: state => (
     Object.assign({}, state, {
-      isFetching: true,
+      inProgress: true,
     })
   ),
   [FETCH_POSTS_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      allPost: payload,
+      inProgress: false,
+      all: payload,
       error: '',
     })
   ),
   [FETCH_POSTS_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
+      inProgress: false,
       error: payload,
     })
   ),
 
   [UPDATE_POST_REQUEST]: state => (
     Object.assign({}, state, {
-      isFetching: true,
+      inProgress: true,
     })
   ),
   [UPDATE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
+      inProgress: false,
       error: payload,
     })
   ),
   [UPDATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      allPost: state.allPost.map(post => (post.id === payload.id ? payload : post)),
+      inProgress: false,
+      all: state.all.map(post => (post.id === payload.id ? payload : post)),
       error: '',
     })
   ),
@@ -56,58 +56,58 @@ export default createReducer(initialState, {
 
   [CREATE_POST_REQUEST]: state => (
     Object.assign({}, state, {
-      isFetching: true,
+      inProgress: true,
     })
   ),
   [CREATE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
+      inProgress: false,
       error: payload,
     })
   ),
   [CREATE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      allPost: state.allPost.concat(payload.posts.filter(post => post.status !== 1)),
+      inProgress: false,
+      all: state.all.concat(payload.posts.filter(post => post.status !== 1)),
       error: '',
     })
   ),
 
   [DELETE_POST_REQUEST]: state => (
     Object.assign({}, state, {
-      isFetching: true,
+      inProgress: true,
     })
   ),
   [DELETE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
+      inProgress: false,
       error: payload,
     })
   ),
   [DELETE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      allPost: state.allPost.filter(post => post.id !== payload.id),
+      inProgress: false,
+      all: state.all.filter(post => post.id !== payload.id),
       error: '',
     })
   ),
 
   [SHARE_POST_REQUEST]: state => (
     Object.assign({}, state, {
-      isFetching: true,
+      inProgress: true,
     })
   ),
   [SHARE_POST_FAILURE]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
+      inProgress: false,
       error: payload,
     })
   ),
 
   [SHARE_POST_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      allPost: state.allPost.filter(post => post.id !== payload.id),
+      inProgress: false,
+      all: state.all.filter(post => post.id !== payload.id),
       error: '',
     })
   ),

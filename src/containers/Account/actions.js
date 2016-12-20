@@ -28,7 +28,7 @@ export function fetchAccountsFailure(error) {
 
 export function fetchAccounts(token) {
   return (dispatch) => {
-    dispatch(fetchAccountsRequest);
+    dispatch(fetchAccountsRequest());
 
     const config = {
       method: 'GET',

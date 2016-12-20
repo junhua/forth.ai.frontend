@@ -4,24 +4,24 @@ import {
 import { createReducer } from '../../utils';
 
 const initialState = {
-  isFetching: false,
-  accounts: [],
+  inProgress: false,
+  all: [],
   selected: {},
 };
 
 export default createReducer(initialState, {
   [FETCH_ACCOUNTS_REQUEST]: state => (
-    Object.assign({}, state, { isFetching: true })
+    Object.assign({}, state, { inProgress: true })
   ),
   [FETCH_ACCOUNTS_SUCCESS]: (state, payload) => (
     Object.assign({}, state, {
-      isFetching: false,
-      accounts: payload.accounts,
+      inProgress: false,
+      all: payload.accounts,
       selected: (Array.isArray(payload.accounts) && payload.accounts[0]) || null,
     })
   ),
   [FETCH_ACCOUNTS_FAILURE]: state => (
-    Object.assign({}, state, { isFetching: false })
+    Object.assign({}, state, { inProgress: false })
   ),
 
   [SET_SELECTED_ACCOUNT]: (state, payload) => (

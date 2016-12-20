@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-// var CompressionPlugin = require('compression-webpack-plugin');
+var CompressionPlugin = require('compression-webpack-plugin');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var precss =  require('precss');
@@ -128,13 +128,13 @@ module.exports = {
     }),
 
     // Open GZip
-    // new CompressionPlugin({
-    //   asset: '[file].gz[query]',
-    //   algorithm: 'gzip',
-    //   regExp: /\.js$|\.html$|\.css$/,
-    //   threshold: 1024,
-    //   minRatio: 0.9
-    // })
+    new CompressionPlugin({
+      asset: '[file].gz[query]',
+      algorithm: 'gzip',
+      regExp: /\.js$|\.html$|\.css$/,
+      threshold: 1024,
+      minRatio: 0.9
+    })
   ],
   postcss: function() {
     return [

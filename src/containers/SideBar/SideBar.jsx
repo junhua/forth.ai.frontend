@@ -45,6 +45,15 @@ class SideBar extends Component {
       )
     );
 
+    if (this.props.inProgress) {
+      return (
+        <div className="loading text-center">
+          <i className="fa fa-spinner fa-pulse fa-2x fa-fw" />
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
+    }
+
     return (
       <nav className="g-sidebar">
         <div className="m-sidebar-container">
@@ -58,13 +67,15 @@ class SideBar extends Component {
 }
 
 SideBar.propTypes = {
+  inProgress: PropTypes.bool.isRequired,
   accounts: PropTypes.array.isRequired,
   selectedAccount: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  accounts: state.account.accounts,
+  inProgress: state.account.inProgress,
+  accounts: state.account.all,
   selectedAccount: state.account.selected,
 });
 

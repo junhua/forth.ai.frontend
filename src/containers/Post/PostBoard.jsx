@@ -35,6 +35,12 @@ class PostBoard extends Component {
     action: null,
   }
 
+  // componentDidMount() {
+  //   if (this.props.selectedAccount && this.props.selectedAccount.id) {
+  //     this.props.actions.fetchPosts(getJWTFromStorage(), `status=0&page=${this.props.selectedAccount.id}`);
+  //   }
+  // }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedAccount !== this.props.selectedAccount) {
       this.props.actions.fetchPosts(getJWTFromStorage(), `status=0&page=${nextProps.selectedAccount.id}`);
@@ -71,7 +77,6 @@ class PostBoard extends Component {
 
   handleDeletePost() {
     // this.props.actions.deletePost(id, getJWTFromStorage());
-    console.warn(this.state.selectedPost);
     this.props.removePostWithUndo(this.state.selectedPost.id);
     this.toggleModal(null, null);
   }
@@ -85,8 +90,6 @@ class PostBoard extends Component {
     // this.handleUpdatePost(selectedPost);
     sharePost(selectedPost, getJWTFromStorage());
     this.toggleModal(null, null);
-
-    console.warn('!@May be unfinished.', selectedPost);
   }
 
   handleSubmit(values) {
@@ -187,7 +190,7 @@ class PostBoard extends Component {
   }
 
   render() {
-    const { posts, isFetching } = this.props;
+    const { posts, inProgress } = this.props;
 
     const postList = posts.map(
       post => (
@@ -203,9 +206,9 @@ class PostBoard extends Component {
 
     return (
       <div className="clearfix posts">
-        { isFetching &&
+        { inProgress &&
           <div className="loading text-center">
-            <i className="fa fa-spinner fa-pulse fa-3x fa-fw" />
+            <i className="fa fa-spinner fa-pulse fa-2x fa-fw" />
             <span className="sr-only">Loading...</span>
           </div>
         }
@@ -219,7 +222,7 @@ class PostBoard extends Component {
 }
 
 PostBoard.propTypes = {
-  isFetching: React.PropTypes.bool.isRequired,
+  inProgress: React.PropTypes.bool.isRequired,
   posts: React.PropTypes.array.isRequired,
   // pending: React.PropTypes.bool.isRequired,
   // success: React.PropTypes.bool.isRequired,
@@ -230,11 +233,11 @@ PostBoard.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isFetching: state.post.isFetching,
-  posts: state.post.allPost,
-  pending: state.post.isFetching,
-  success: !state.post.isFetching && !state.post.error,
-  failure: !state.post.isFetching && !!state.post.error,
+  inProgress: state.post.inProgress,
+  posts: state.post.all.slice().sort((a, b) => (moment(a.publish_date).isAfter(b.publish_date))),
+  pending: state.post.inProgress,
+  success: !state.post.inProgress && !state.post.error,
+  failure: !state.post.inProgress && !!state.post.error,
   selectedAccount: state.account.selected,
 });
 

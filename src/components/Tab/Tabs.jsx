@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import { TabList, Tab, TabPanel } from './index';
+
 class Tabs extends Component {
   state = { selected: this.props.selected };
 
@@ -18,7 +20,7 @@ class Tabs extends Component {
 
     return React.cloneElement(child, {
       children: React.Children.map(child.props.children, (childTab) => {
-        if (childTab.type.name === 'Tab') {
+        if (childTab.type === Tab) {
           const isActive = (tab === this.state.selected);
           const onClick = this.handleClick(tab);
 
@@ -36,11 +38,11 @@ class Tabs extends Component {
     let panel = 0;
 
     return React.Children.map(children, (child) => {
-      if (child.type.name === 'TabList') {
+      if (child.type === TabList) {
         return this.renderTabList(child);
       }
 
-      if (child.type.name === 'TabPanel') {
+      if (child.type === TabPanel) {
         const isActive = (panel === this.state.selected);
 
         panel += 1;
