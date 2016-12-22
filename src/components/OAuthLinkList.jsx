@@ -4,7 +4,7 @@ import { ROOT_URL } from '../utils';
 function OAuthLinkList() {
   return (
     <div>
-      <p className="description text-center">or sign in with one of these services</p>
+      {false && <p className="description text-center">or sign in with one of these services</p>}
       <div className="bottons text-center">
         <a className="btn btn-default btn-facebook" href={`${ROOT_URL}/accounts/facebook/login/`}>
           <i className="fa fa-facebook-official fa-2x fa-icon facebook-official-color" aria-hidden="true" />

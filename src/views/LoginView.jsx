@@ -45,11 +45,11 @@ class LoginView extends Component {
     return (
       <div className="form-wrapper">
         <ul className="nav nav-tabs m-nav-justified">
-          <li role="presentation" className="m-cornor-l active"><a href="javascript:void(0);">SIGN IN</a></li>
-          <li role="presentation" className="m-cornor-r"><a href="/signup">SIGN UP</a></li>
+          <li role="presentation" className="m-cornor-l active"><a href="javascript:void(0);" style={{ background: '#eeeeee', marginRight: '0px' }}>SIGN IN</a></li>
+          {false && <li role="presentation" className="m-cornor-r"><a href="/signup">SIGN UP</a></li>}
         </ul>
         <div className="form-pane">
-          <form className="account-form" onSubmit={this.login}>
+          <form className="account-form sr-only" onSubmit={this.login}>
             <fieldset disabled={submitting}>
               <div className="form-group">
                 <label htmlFor="email">Account Email</label>
@@ -87,6 +87,7 @@ class LoginView extends Component {
                 <button
                   type="submit"
                   className="btn btn-default center-block btn-login"
+                  disabled
                 >SIGN IN</button>
                 :
                 <button
@@ -100,7 +101,7 @@ class LoginView extends Component {
               }
             </fieldset>
           </form>
-          <hr />
+          {/* <hr />*/}
           <OAuthLinkList />
         </div>
       </div>

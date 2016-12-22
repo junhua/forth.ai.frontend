@@ -14,8 +14,8 @@ function RegistrationView(props) {
         <li role="presentation" className="m-cornor-r active"><a href="javascript:void(0);">SIGN UP</a></li>
       </ul>
       <div className="form-pane">
-        <RegistrationForm onSubmit={props.registerUser} isSubmitting={isSubmitting} />
-        <hr />
+        { false && <RegistrationForm onSubmit={props.registerUser} isSubmitting={isSubmitting} /> }
+        {/* <hr />*/}
         <OAuthLinkList />
       </div>
 
